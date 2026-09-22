@@ -1,0 +1,1082 @@
+{
+  "hotels": [
+    {
+      "_id": "hotel-1789869315653",
+      "rating": 4.95,
+      "reviewCount": 1,
+      "rooms": [
+        {
+          "name": "Oceanview Presidential Suite",
+          "bedType": "1 King Bed",
+          "maxGuests": 2,
+          "sizeSqM": 120,
+          "pricePerNight": 450,
+          "imageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Ocean View",
+            "Private Jacuzzi",
+            "Butler Service"
+          ],
+          "totalInventory": 9,
+          "weekendMultiplier": 1.25
+        }
+      ],
+      "isFeatured": true,
+      "name": "Amangalla Galle Heritage Sanctuary",
+      "tagline": "Historic 17th Century Colonial Grandeur",
+      "category": "Luxury",
+      "city": "Galle Fort",
+      "country": "Sri Lanka",
+      "location": "10 Church Street, Galle Fort, Southern Province",
+      "pricePerNight": 450,
+      "originalPrice": 550,
+      "discountPercent": 18,
+      "description": "An exquisite historic retreat located inside the ramparts of the 17th-century UNESCO World Heritage Galle Fort.",
+      "amenities": [
+        "Private Ocean Pool",
+        "Overwater Spa",
+        "St. Regis Butler",
+        "Fine Dining",
+        "Yacht Excursions"
+      ],
+      "images": [
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "reviews": [],
+      "createdAt": "2026-09-20T01:55:15.653Z",
+      "updatedAt": "2026-09-21T01:53:39.752Z"
+    },
+    {
+      "_id": "hotel-001",
+      "name": "The St. Regis Maldives Vommuli",
+      "tagline": "Overwater Ultra-Luxury Sanctuary",
+      "location": "Dhaalu Atoll, Maldives",
+      "city": "Dhaalu Atoll",
+      "country": "Maldives",
+      "rating": 5,
+      "reviewCount": 4,
+      "pricePerNight": 1450,
+      "originalPrice": 1800,
+      "discountPercent": 20,
+      "category": "Beachfront",
+      "images": [
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "description": "Nestled between verdant rainforest and white-sand beaches on a private island with overwater villas and personal butler service.",
+      "amenities": [
+        "Private Ocean Pool",
+        "Overwater Spa",
+        "St. Regis Butler",
+        "Fine Dining",
+        "Yacht Excursions"
+      ],
+      "rooms": [
+        {
+          "id": "rm-101",
+          "name": "Overwater Villa with Private Pool",
+          "bedType": "1 King Bed",
+          "maxGuests": 3,
+          "sizeSqM": 182,
+          "pricePerNight": 1450,
+          "imageUrl": "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Direct Lagoon Access",
+            "Marble Bathroom",
+            "Sunset View"
+          ]
+        },
+        {
+          "id": "rm-102",
+          "name": "Sunset Ocean Suite",
+          "bedType": "2 King Beds",
+          "maxGuests": 4,
+          "sizeSqM": 285,
+          "pricePerNight": 2250,
+          "imageUrl": "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Panoramic Glass Floor",
+            "Private Infinity Pool",
+            "Dedicated Chef"
+          ]
+        }
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-01-10T10:00:00.000Z"
+    },
+    {
+      "_id": "hotel-002",
+      "name": "The Chedi Andermatt",
+      "tagline": "Alpine Grandeur & Zen Elegance",
+      "location": "Gotthardstrasse 4, Andermatt",
+      "city": "Andermatt",
+      "country": "Switzerland",
+      "rating": 4.97,
+      "reviewCount": 412,
+      "pricePerNight": 1290,
+      "originalPrice": 1500,
+      "discountPercent": 15,
+      "category": "Mountain",
+      "images": [
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "description": "Surrounded by the breathtaking Swiss Alps, blending alpine chic with Asian serenity and Michelin-starred dining.",
+      "amenities": [
+        "Ski Butler Service",
+        "2400m² Hydrothermal Spa",
+        "Indoor Lap Pool",
+        "Helipad Access"
+      ],
+      "rooms": [
+        {
+          "id": "rm-201",
+          "name": "Deluxe Alpine Suite",
+          "bedType": "1 King Bed",
+          "maxGuests": 3,
+          "sizeSqM": 110,
+          "pricePerNight": 1290,
+          "imageUrl": "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Fireplace",
+            "Mountain Balcony",
+            "Bronze Bathtub"
+          ]
+        }
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-01-15T12:00:00.000Z"
+    },
+    {
+      "_id": "hotel-003",
+      "name": "Bulgari Resort Dubai",
+      "tagline": "Private Island Mediterranean Glamour",
+      "location": "Jumeirah Bay Island",
+      "city": "Dubai",
+      "country": "United Arab Emirates",
+      "rating": 4.96,
+      "reviewCount": 510,
+      "pricePerNight": 1650,
+      "originalPrice": 1950,
+      "discountPercent": 15,
+      "category": "Luxury",
+      "images": [
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "description": "An exclusive oasis on a seahorse-shaped island bringing Mediterranean jewel aesthetics to the Arabian Gulf.",
+      "amenities": [
+        "Private Yacht Club",
+        "Bulgari Spa",
+        "Private Beachfront Cabanas",
+        "Michelin Dining"
+      ],
+      "rooms": [
+        {
+          "id": "rm-301",
+          "name": "Ocean View Suite",
+          "bedType": "1 King Bed",
+          "maxGuests": 2,
+          "sizeSqM": 105,
+          "pricePerNight": 1650,
+          "imageUrl": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Spacious Terrace",
+            "Walk-in Closet",
+            "Arabian Gulf Views"
+          ]
+        }
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-02-01T08:30:00.000Z"
+    },
+    {
+      "_id": "hotel-004",
+      "name": "Amangiri Resort Canyon Point",
+      "tagline": "Architectural Masterpiece in Red Rock Desert",
+      "location": "1 Kayenta Road, Canyon Point",
+      "city": "Utah",
+      "country": "United States",
+      "rating": 4.99,
+      "reviewCount": 288,
+      "pricePerNight": 2150,
+      "originalPrice": 2400,
+      "discountPercent": 10,
+      "category": "Luxury",
+      "images": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "description": "A remote hideaway nestled in 600 acres of Colorado Plateau wilderness with raw minimalist concrete architecture.",
+      "amenities": [
+        "Desert Horizon Pool",
+        "Water Pavilion Spa",
+        "Via Ferrata Climbing",
+        "Private Aircraft Charter"
+      ],
+      "rooms": [
+        {
+          "id": "rm-401",
+          "name": "Mesa View Suite with Private Plunge",
+          "bedType": "1 King Bed",
+          "maxGuests": 2,
+          "sizeSqM": 140,
+          "pricePerNight": 2150,
+          "imageUrl": "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Private Sky Terrace",
+            "Outdoor Fireplace",
+            "Deep Soaking Tub"
+          ]
+        }
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-02-10T14:20:00.000Z"
+    },
+    {
+      "_id": "hotel-005",
+      "name": "Four Seasons Resort Bora Bora",
+      "tagline": "Tahitian Splendor & Mount Otemanu Views",
+      "location": "Motu Tehotu, Bora Bora",
+      "city": "Bora Bora",
+      "country": "French Polynesia",
+      "rating": 4.95,
+      "reviewCount": 620,
+      "pricePerNight": 1850,
+      "originalPrice": 2100,
+      "discountPercent": 12,
+      "category": "Beachfront",
+      "images": [
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "description": "Encircled by sandy white beaches and a crystal-clear turquoise lagoon overlooking the magnificent Mount Otemanu.",
+      "amenities": [
+        "Lagoon Sanctuary",
+        "Catamaran Cruises",
+        "Overwater Spa Suites",
+        "Scuba Diving"
+      ],
+      "rooms": [
+        {
+          "id": "rm-501",
+          "name": "Otemanu Overwater Villa Suite",
+          "bedType": "1 King Bed",
+          "maxGuests": 3,
+          "sizeSqM": 100,
+          "pricePerNight": 1850,
+          "imageUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Lagoon Sun Deck",
+            "Glass Viewing Panels",
+            "Deep Tub with Views"
+          ]
+        }
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-02-20T09:15:00.000Z"
+    },
+    {
+      "_id": "hotel-006",
+      "name": "Aman Tokyo Otemachi",
+      "tagline": "Urban Sanctuary Above the Imperial Palace",
+      "location": "The Otemachi Tower, 1-5-6 Otemachi, Chiyoda-ku",
+      "city": "Tokyo",
+      "country": "Japan",
+      "rating": 4.96,
+      "reviewCount": 395,
+      "pricePerNight": 1580,
+      "originalPrice": 1800,
+      "discountPercent": 12,
+      "category": "Boutique",
+      "images": [
+        "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80",
+        "https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80"
+      ],
+      "description": "An urban sanctuary perched high above Tokyo with panoramic views of the skyline and Mount Fuji on clear days.",
+      "amenities": [
+        "30m Sky Swimming Pool",
+        "Japanese Onsen Baths",
+        "Cigar Lounge",
+        "Wine Cellar"
+      ],
+      "rooms": [
+        {
+          "id": "rm-601",
+          "name": "Grand Premier Sky Suite",
+          "bedType": "1 King Bed",
+          "maxGuests": 2,
+          "sizeSqM": 121,
+          "pricePerNight": 1580,
+          "imageUrl": "https://images.unsplash.com/photo-1503899036084-c55cdd92da26?auto=format&fit=crop&w=1200&q=80",
+          "features": [
+            "Furo Soaking Tub",
+            "Shoji Paper Screens",
+            "Imperial Palace Gardens View"
+          ]
+        }
+      ],
+      "isFeatured": true,
+      "createdAt": "2026-03-01T11:00:00.000Z"
+    }
+  ],
+  "bookings": [
+    {
+      "_id": "BK-2493",
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "grandTotal": 1478,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "hotelImage": "https://images.unsplash.com/photo-1540541338287-41700207dee6",
+      "location": "Dhaalu Atoll, Maldives",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita@vip.io",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-01T00:00:00.000Z",
+      "checkOut": "2026-10-05T00:00:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 4,
+      "roomTotal": 1280,
+      "taxesAndFees": 198,
+      "createdAt": "2026-09-22T01:14:23.709Z"
+    },
+    {
+      "_id": "BK-1444",
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "grandTotal": 1478,
+      "hotelId": "sl-001",
+      "hotelName": "Amanwella Beach Haven",
+      "hotelImage": "https://images.unsplash.com/photo-1540541338287-41700207dee6",
+      "location": "Tangalle, Southern Province",
+      "roomId": "rm-sl-01",
+      "roomName": "Ocean Plunge Pool Suite",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita@vip.io",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-01T00:00:00.000Z",
+      "checkOut": "2026-10-05T00:00:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 4,
+      "roomTotal": 1280,
+      "taxesAndFees": 198,
+      "createdAt": "2026-09-22T01:13:16.037Z"
+    },
+    {
+      "_id": "BK-9492",
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "grandTotal": 5800,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "checkIn": "2026-11-10",
+      "checkOut": "2026-11-14",
+      "guestName": "Alexander Sterling",
+      "guestEmail": "alex.sterling@luxury.com",
+      "guestPhone": "+1-555-0922",
+      "nights": 4,
+      "createdAt": "2026-09-21T01:46:12.672Z"
+    },
+    {
+      "_id": "BK-6157",
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "grandTotal": 5800,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "checkIn": "2026-11-10",
+      "checkOut": "2026-11-14",
+      "guestName": "Alexander Sterling",
+      "guestEmail": "alex.sterling@luxury.com",
+      "guestPhone": "+1-555-0922",
+      "nights": 4,
+      "createdAt": "2026-09-21T01:45:23.046Z"
+    },
+    {
+      "_id": "BK-4182",
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "grandTotal": 5800,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "checkIn": "2026-11-10",
+      "checkOut": "2026-11-14",
+      "guestName": "Alexander Sterling",
+      "guestEmail": "alex.sterling@luxury.com",
+      "guestPhone": "+1-555-0922",
+      "nights": 4,
+      "createdAt": "2026-09-21T01:44:41.777Z"
+    },
+    {
+      "_id": "BK-7418",
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "grandTotal": 5800,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "checkIn": "2026-11-01",
+      "checkOut": "2026-11-05",
+      "guestName": "Elena Rostova",
+      "guestEmail": "elena@luxury.com",
+      "guestPhone": "+1-555-0199",
+      "nights": 4,
+      "createdAt": "2026-09-21T01:30:51.272Z"
+    },
+    {
+      "_id": "BK-8901",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "roomName": "Overwater Villa with Private Pool",
+      "guestName": "Eleanor Vance",
+      "guestEmail": "eleanor.vance@vip.io",
+      "guestPhone": "+1 (555) 438-9921",
+      "checkIn": "2026-09-24",
+      "checkOut": "2026-09-29",
+      "nights": 5,
+      "adults": 2,
+      "children": 0,
+      "roomTotal": 7250,
+      "taxesAndFees": 920,
+      "grandTotal": 8170,
+      "status": "active",
+      "paymentMethod": "VIP Concierge Pay",
+      "specialRequests": "Sunset ocean view villa with vintage Dom Pérignon on arrival",
+      "createdAt": "2026-09-18T10:15:00.000Z",
+      "updatedAt": "2026-09-19T02:06:56.312Z"
+    },
+    {
+      "_id": "BK-8902",
+      "hotelId": "hotel-002",
+      "hotelName": "The Chedi Andermatt",
+      "roomName": "Deluxe Alpine Suite",
+      "guestName": "Lord Harrison Smith",
+      "guestEmail": "harrison.smith@royale.com",
+      "guestPhone": "+44 20 7946 0912",
+      "checkIn": "2026-10-02",
+      "checkOut": "2026-10-06",
+      "nights": 4,
+      "adults": 2,
+      "children": 0,
+      "roomTotal": 5160,
+      "taxesAndFees": 680,
+      "grandTotal": 5840,
+      "status": "active",
+      "paymentMethod": "Centurion Card",
+      "specialRequests": "Private ski butler & daily heli-ski transfer arranged",
+      "createdAt": "2026-09-17T14:40:00.000Z"
+    },
+    {
+      "_id": "BK-8903",
+      "hotelId": "hotel-003",
+      "hotelName": "Bulgari Resort Dubai",
+      "roomName": "Ocean View Suite",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita.c@emirates.ae",
+      "guestPhone": "+971 50 123 4567",
+      "checkIn": "2026-08-15",
+      "checkOut": "2026-08-19",
+      "nights": 4,
+      "adults": 2,
+      "children": 1,
+      "roomTotal": 6600,
+      "taxesAndFees": 850,
+      "grandTotal": 7450,
+      "status": "completed",
+      "paymentMethod": "Emirates NBD VIP",
+      "specialRequests": "Private yacht berth reservation at Bulgari Marina",
+      "createdAt": "2026-08-10T09:00:00.000Z"
+    },
+    {
+      "_id": "BK-8904",
+      "hotelId": "hotel-004",
+      "hotelName": "Amangiri Resort Canyon Point",
+      "roomName": "Mesa View Suite with Private Plunge",
+      "guestName": "Sophia Montgomery",
+      "guestEmail": "sophia.m@monaco-yachts.mc",
+      "guestPhone": "+377 98 98 00 00",
+      "checkIn": "2026-09-28",
+      "checkOut": "2026-10-02",
+      "nights": 4,
+      "adults": 2,
+      "children": 0,
+      "roomTotal": 8600,
+      "taxesAndFees": 1100,
+      "grandTotal": 9700,
+      "status": "confirmed",
+      "paymentMethod": "VIP Concierge Pay",
+      "specialRequests": "Private hot air balloon flight over Lake Powell at dawn",
+      "createdAt": "2026-09-16T17:22:00.000Z"
+    },
+    {
+      "_id": "BK-8905",
+      "hotelId": "hotel-005",
+      "hotelName": "Four Seasons Resort Bora Bora",
+      "roomName": "Otemanu Overwater Villa Suite",
+      "guestName": "Marcus Sterling",
+      "guestEmail": "marcus.sterling@travel.io",
+      "guestPhone": "+1 (555) 334-1188",
+      "checkIn": "2026-09-10",
+      "checkOut": "2026-09-14",
+      "nights": 4,
+      "adults": 2,
+      "children": 0,
+      "roomTotal": 7400,
+      "taxesAndFees": 950,
+      "grandTotal": 8350,
+      "status": "completed",
+      "paymentMethod": "American Express Platinum",
+      "specialRequests": "Canoe breakfast delivery to overwater deck",
+      "createdAt": "2026-09-01T11:45:00.000Z"
+    },
+    {
+      "_id": "BK-8906",
+      "hotelId": "hotel-006",
+      "hotelName": "Aman Tokyo Otemachi",
+      "roomName": "Grand Premier Sky Suite",
+      "guestName": "Alexander Wright",
+      "guestEmail": "alexander@luxurystays.io",
+      "guestPhone": "+1 (555) 902-1200",
+      "checkIn": "2026-10-10",
+      "checkOut": "2026-10-14",
+      "nights": 4,
+      "adults": 1,
+      "children": 0,
+      "roomTotal": 6320,
+      "taxesAndFees": 820,
+      "grandTotal": 7140,
+      "status": "active",
+      "paymentMethod": "Corporate Card",
+      "specialRequests": "High floor corner suite facing Imperial Palace Gardens",
+      "createdAt": "2026-09-15T08:12:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "_id": "usr-001",
+      "name": "Alexander Wright",
+      "email": "alexander@luxurystays.io",
+      "role": "admin",
+      "tier": "Black Diamond VIP",
+      "points": 92500,
+      "phone": "+1 (555) 902-1200",
+      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2025-11-12T08:00:00.000Z"
+    },
+    {
+      "_id": "usr-002",
+      "name": "Eleanor Vance",
+      "email": "eleanor.vance@vip.io",
+      "role": "vip",
+      "tier": "Platinum Elite",
+      "points": 48200,
+      "phone": "+1 (555) 438-9921",
+      "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2025-12-05T14:30:00.000Z"
+    },
+    {
+      "_id": "usr-003",
+      "name": "Lord Harrison Smith",
+      "email": "harrison.smith@royale.com",
+      "role": "vip",
+      "tier": "Black Diamond VIP",
+      "points": 114000,
+      "phone": "+44 20 7946 0912",
+      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-08T09:10:00.000Z"
+    },
+    {
+      "_id": "usr-004",
+      "name": "Kavita Chawla",
+      "email": "kavita.c@emirates.ae",
+      "role": "vip",
+      "tier": "Gold Member",
+      "points": 29500,
+      "phone": "+971 50 123 4567",
+      "avatarUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-01-22T16:45:00.000Z"
+    },
+    {
+      "_id": "usr-005",
+      "name": "Marcus Sterling",
+      "email": "marcus.sterling@travel.io",
+      "role": "member",
+      "tier": "Gold Member",
+      "points": 18400,
+      "phone": "+1 (555) 334-1188",
+      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-02-14T11:20:00.000Z"
+    },
+    {
+      "_id": "usr-006",
+      "name": "Sophia Montgomery",
+      "email": "sophia.m@monaco-yachts.mc",
+      "role": "vip",
+      "tier": "Platinum Elite",
+      "points": 62000,
+      "phone": "+377 98 98 00 00",
+      "avatarUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+      "createdAt": "2026-03-02T13:10:00.000Z"
+    }
+  ],
+  "reviews": [
+    {
+      "_id": "rev-1790039663781",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:14:23.781Z"
+    },
+    {
+      "_id": "rev-1790039596119",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:13:16.119Z",
+      "updatedAt": "2026-09-22T01:14:23.788Z"
+    },
+    {
+      "_id": "rev-1789955172700",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-9492",
+      "userId": "usr-guest",
+      "userName": "Elena Rostova",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Exceptional butler service and sunset villa view. Truly unforgettable.",
+      "photos": [
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-21T01:46:12.700Z",
+      "updatedAt": "2026-09-22T01:13:16.124Z"
+    },
+    {
+      "_id": "rev-001",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-002",
+      "userName": "Eleanor Vance",
+      "userAvatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
+      "rating": 5,
+      "comment": "An absolute masterpiece of hospitality. The overwater villa with direct ocean access and our dedicated butler made this the most memorable stay of our lives!",
+      "photos": [
+        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?auto=format&fit=crop&w=800&q=80",
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6?auto=format&fit=crop&w=800&q=80"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-18T14:30:00.000Z"
+    },
+    {
+      "_id": "rev-002",
+      "hotelId": "hotel-003",
+      "hotelName": "Bulgari Resort Dubai",
+      "bookingId": "BK-8903",
+      "userId": "usr-004",
+      "userName": "Kavita Chawla",
+      "userAvatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
+      "rating": 5,
+      "comment": "The yacht club and ocean views are unmatched. Service is crisp, attentive, and discreet. Five stars all around.",
+      "photos": [
+        "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=800&q=80"
+      ],
+      "status": "approved",
+      "createdAt": "2026-08-20T11:15:00.000Z"
+    },
+    {
+      "_id": "rev-003",
+      "hotelId": "hotel-005",
+      "hotelName": "Four Seasons Resort Bora Bora",
+      "bookingId": "BK-8905",
+      "userId": "usr-005",
+      "userName": "Marcus Sterling",
+      "userAvatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.8,
+      "comment": "The canoe breakfast was surreal! Crystal clear water right outside our bedroom door. Will definitely return next year.",
+      "photos": [
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-15T09:40:00.000Z"
+    },
+    {
+      "_id": "rev-004",
+      "hotelId": "hotel-002",
+      "hotelName": "The Chedi Andermatt",
+      "bookingId": "BK-8902",
+      "userId": "usr-003",
+      "userName": "Lord Harrison Smith",
+      "userAvatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+      "rating": 4.5,
+      "comment": "Superb ski concierge. Hydrothermal spa is the finest in Europe. Fireplace in suite was very cozy.",
+      "photos": [
+        "https://images.unsplash.com/photo-1582719508461-905c673771fd?auto=format&fit=crop&w=800&q=80"
+      ],
+      "status": "pending",
+      "createdAt": "2026-09-19T16:20:00.000Z"
+    },
+    {
+      "_id": "rev-005",
+      "hotelId": "hotel-004",
+      "hotelName": "Amangiri Resort Canyon Point",
+      "bookingId": "BK-8904",
+      "userId": "usr-006",
+      "userName": "Sophia Montgomery",
+      "userAvatar": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+      "rating": 5,
+      "comment": "Architectural heaven. Sunset over the canyon while in the private plunge pool is a transcendent experience.",
+      "photos": [
+        "https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=800&q=80"
+      ],
+      "status": "pending",
+      "createdAt": "2026-09-20T10:05:00.000Z"
+    }
+  ],
+  "promos": [
+    {
+      "_id": "prm-001",
+      "code": "WELCOME10",
+      "description": "10% Welcome discount on all luxury retreats",
+      "discountType": "percentage",
+      "discountValue": 10,
+      "minBookingAmount": 500,
+      "maxDiscount": 1000,
+      "expiryDate": "2027-12-31",
+      "isActive": true,
+      "usageCount": 142,
+      "createdAt": "2026-01-01T00:00:00.000Z"
+    },
+    {
+      "_id": "prm-002",
+      "code": "HOLIDAY20",
+      "description": "20% Off luxury suites for extended holiday escapes",
+      "discountType": "percentage",
+      "discountValue": 20,
+      "minBookingAmount": 2000,
+      "maxDiscount": 2500,
+      "expiryDate": "2027-12-31",
+      "isActive": true,
+      "usageCount": 89,
+      "createdAt": "2026-01-15T00:00:00.000Z"
+    },
+    {
+      "_id": "prm-003",
+      "code": "BLACKDIAMOND",
+      "description": "$500 Flat voucher for VIP Black Diamond members",
+      "discountType": "fixed",
+      "discountValue": 500,
+      "minBookingAmount": 3000,
+      "maxDiscount": 500,
+      "expiryDate": "2027-12-31",
+      "isActive": true,
+      "usageCount": 34,
+      "createdAt": "2026-02-01T00:00:00.000Z"
+    },
+    {
+      "_id": "prm-004",
+      "code": "SUMMERSCAPE",
+      "description": "15% Off Beachfront & Island private villas",
+      "discountType": "percentage",
+      "discountValue": 15,
+      "minBookingAmount": 1200,
+      "maxDiscount": 1500,
+      "expiryDate": "2027-08-31",
+      "isActive": true,
+      "usageCount": 63,
+      "createdAt": "2026-02-10T00:00:00.000Z"
+    }
+  ],
+  "notifications": [
+    {
+      "_id": "notif-1790039663774-738",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Oct 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-2493",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-22T01:14:23.774Z"
+    },
+    {
+      "_id": "notif-1790039596110-705",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at Amanwella Beach Haven (Ocean Plunge Pool Suite) is booked for Oct 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-1444",
+        "hotelId": "sl-001"
+      },
+      "createdAt": "2026-09-22T01:13:16.110Z"
+    },
+    {
+      "_id": "notif-1789955172697-90",
+      "title": "⏰ Check-In Reminder: The St. Regis Maldives Vommuli",
+      "body": "Your stay in the Overwater Villa with Private Pool begins soon! Your personal VIP concierge is preparing your welcome arrival.",
+      "type": "checkin_reminder",
+      "targetAudience": "active_bookings",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-8901",
+        "hotelId": "hotel-001",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789955172697-7458"
+      },
+      "createdAt": "2026-09-21T01:46:12.697Z"
+    },
+    {
+      "_id": "notif-1789955172695-190",
+      "title": "🌟 Autumn Escapes 20% Off",
+      "body": "Exclusive private overwater villas now available with complimentary yacht transfer.",
+      "type": "promo_deal",
+      "targetAudience": "all",
+      "recipientCount": 450,
+      "status": "delivered",
+      "data": {
+        "promoCode": "HOLIDAY20",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789955172695-7924"
+      },
+      "createdAt": "2026-09-21T01:46:12.695Z"
+    },
+    {
+      "_id": "notif-1789955172691-430",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Nov 10. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-9492",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-21T01:46:12.691Z"
+    },
+    {
+      "_id": "notif-1789955123068-231",
+      "title": "⏰ Check-In Reminder: The St. Regis Maldives Vommuli",
+      "body": "Your stay in the Overwater Villa with Private Pool begins soon! Your personal VIP concierge is preparing your welcome arrival.",
+      "type": "checkin_reminder",
+      "targetAudience": "active_bookings",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-8901",
+        "hotelId": "hotel-001",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789955123067-8975"
+      },
+      "createdAt": "2026-09-21T01:45:23.068Z"
+    },
+    {
+      "_id": "notif-1789955123065-821",
+      "title": "🌟 Autumn Escapes 20% Off",
+      "body": "Exclusive private overwater villas now available with complimentary yacht transfer.",
+      "type": "promo_deal",
+      "targetAudience": "all",
+      "recipientCount": 450,
+      "status": "delivered",
+      "data": {
+        "promoCode": "HOLIDAY20",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789955123065-1518"
+      },
+      "createdAt": "2026-09-21T01:45:23.065Z"
+    },
+    {
+      "_id": "notif-1789955123062-585",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Nov 10. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-6157",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-21T01:45:23.062Z"
+    },
+    {
+      "_id": "notif-1789955081827-461",
+      "title": "⏰ Check-In Reminder: The St. Regis Maldives Vommuli",
+      "body": "Your stay in the Overwater Villa with Private Pool begins soon! Your personal VIP concierge is preparing your welcome arrival.",
+      "type": "checkin_reminder",
+      "targetAudience": "active_bookings",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-8901",
+        "hotelId": "hotel-001",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789955081827-767"
+      },
+      "createdAt": "2026-09-21T01:44:41.827Z"
+    },
+    {
+      "_id": "notif-1789955081822-481",
+      "title": "🌟 Autumn Escapes 20% Off",
+      "body": "Exclusive private overwater villas now available with complimentary yacht transfer.",
+      "type": "promo_deal",
+      "targetAudience": "all",
+      "recipientCount": 450,
+      "status": "delivered",
+      "data": {
+        "promoCode": "HOLIDAY20",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789955081822-8129"
+      },
+      "createdAt": "2026-09-21T01:44:41.822Z"
+    },
+    {
+      "_id": "notif-1789955081818-865",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Nov 10. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-4182",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-21T01:44:41.818Z"
+    },
+    {
+      "_id": "notif-1789954251308-317",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Nov 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-7418",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-21T01:30:51.308Z"
+    },
+    {
+      "_id": "notif-1789954251249-979",
+      "title": "⏰ Check-In Reminder: The St. Regis Maldives Vommuli",
+      "body": "Your stay in the Overwater Villa with Private Pool begins soon! Your personal VIP concierge is preparing your welcome arrival.",
+      "type": "checkin_reminder",
+      "targetAudience": "active_bookings",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-8901",
+        "hotelId": "hotel-001",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789954251249-6405"
+      },
+      "createdAt": "2026-09-21T01:30:51.249Z"
+    },
+    {
+      "_id": "notif-1789954251244-564",
+      "title": "🌟 Summer VIP Escape Offer",
+      "body": "Book 3 nights at The St. Regis and get complimentary helicopter transfer.",
+      "type": "promo_deal",
+      "targetAudience": "vip_tier",
+      "recipientCount": 420,
+      "status": "delivered",
+      "data": {
+        "promoCode": "SUMMERSCAPE",
+        "hotelId": "hotel-001",
+        "messageId": "projects/luxury-hotel-booking-system/messages/fcm-1789954251244-8986"
+      },
+      "createdAt": "2026-09-21T01:30:51.244Z"
+    },
+    {
+      "_id": "notif-001",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your luxury stay at The St. Regis Maldives Vommuli (Overwater Villa) has been reserved. Check-in on Oct 12.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "BK-1001",
+        "hotelId": "hotel-001",
+        "screen": "booking_details"
+      },
+      "createdAt": "2026-03-01T10:30:00.000Z"
+    },
+    {
+      "_id": "notif-002",
+      "title": "⏰ Check-In Tomorrow: The Chedi Andermatt",
+      "body": "Your private Deluxe Alpine Suite is being prepared. Your Ski Butler is ready to assist your mountain arrival.",
+      "type": "checkin_reminder",
+      "targetAudience": "active_bookings",
+      "recipientCount": 8,
+      "status": "delivered",
+      "data": {
+        "hotelId": "hotel-002",
+        "screen": "itinerary"
+      },
+      "createdAt": "2026-03-05T08:00:00.000Z"
+    },
+    {
+      "_id": "notif-003",
+      "title": "🏷️ 20% Holiday Special: Code HOLIDAY20",
+      "body": "Experience private island luxury with 20% off all beachfront villas and private residences.",
+      "type": "promo_deal",
+      "targetAudience": "all",
+      "recipientCount": 2450,
+      "status": "delivered",
+      "data": {
+        "promoCode": "HOLIDAY20",
+        "screen": "promos"
+      },
+      "createdAt": "2026-03-08T14:15:00.000Z"
+    },
+    {
+      "_id": "notif-004",
+      "title": "👑 VIP Elite Concierge Activated",
+      "body": "Welcome to Luxe Member tier. Enjoy complimentary champagne, late checkouts, and priority reservations.",
+      "type": "system_alert",
+      "targetAudience": "vip_tier",
+      "recipientCount": 380,
+      "status": "delivered",
+      "data": {
+        "tier": "VIP_ELITE",
+        "screen": "profile"
+      },
+      "createdAt": "2026-03-10T09:00:00.000Z"
+    }
+  ],
+  "updatedAt": "2026-09-22T01:14:23.789Z"
+}

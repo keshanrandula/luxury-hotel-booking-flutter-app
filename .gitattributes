@@ -1,0 +1,18 @@
+# GitHub Linguist Overrides
+# Ensures GitHub displays the repository as a Flutter (Dart) project
+admin_panel/** linguist-vendored
+backend_api/** linguist-vendored
+*.json linguist-detectable=false
+*.lock linguist-detectable=false
+*.md linguist-documentation
+mobile_app/** linguist-detectable=true
+
+# Git Line Endings
+* text=auto eol=lf
+*.bat text eol=crlf
+*.ps1 text eol=crlf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
