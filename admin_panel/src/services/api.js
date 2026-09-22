@@ -252,6 +252,25 @@ export const HotelService = {
     }
   },
 
+  uploadImage: async (fileOrData) => {
+    try {
+      if (fileOrData instanceof File) {
+        const formData = new FormData();
+        formData.append('image', fileOrData);
+        const res = await api.post('/upload', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        });
+        return res.data;
+      } else {
+        const res = await api.post('/upload', { image: fileOrData });
+        return res.data;
+      }
+    } catch (err) {
+      console.error('Error uploading image to Cloudinary:', err);
+      throw err;
+    }
+  },
+
   downloadBookingsCSV: () => {
     window.open(`${API_BASE_URL}/stats/export/bookings`, '_blank');
   },

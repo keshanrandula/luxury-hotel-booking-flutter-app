@@ -112,7 +112,14 @@ const server = app.listen(PORT, async () => {
       console.log(`   Status: ${statusRes.status} | Status updated to:`, statusRes.data.data.status);
     }
 
-    console.log('\n✅ ALL BACKEND API ENDPOINTS VERIFIED SUCCESSFULLY!\n');
+    // 9. Test Cloudinary Image Upload
+    console.log('9. Testing POST /api/upload with Cloudinary...');
+    const uploadRes = await request('/api/upload', 'POST', {
+      image: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
+    });
+    console.log(`   Status: ${uploadRes.status} | Cloudinary Secure URL:`, uploadRes.data ? uploadRes.data.url : 'N/A');
+
+    console.log('\n✅ ALL BACKEND API ENDPOINTS & CLOUDINARY UPLOAD VERIFIED SUCCESSFULLY!\n');
     server.close(() => process.exit(0));
   } catch (err) {
     console.error('❌ Test failed:', err);

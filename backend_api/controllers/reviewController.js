@@ -148,20 +148,22 @@ exports.updateReviewStatus = async (req, res, next) => {
       });
     }
 
+    let updatedReview = null;
     try {
-      await Review.findByIdAndUpdate(req.params.id, { status }, { new: true });
+      updatedReview = await Review.findByIdAndUpdate(req.params.id, { status }, { new: true });
     } catch (_) {}
 
-    const updated = store.updateReviewStatus(req.params.id, status);
+    const storeUpdated = store.updateReviewStatus(req.params.id, status);
+    const finalData = updatedReview ? (updatedReview.toObject ? updatedReview.toObject() : updatedReview) : storeUpdated;
 
-    if (!updated) {
+    if (!finalData) {
       return res.status(404).json({ success: false, message: 'Review not found' });
     }
 
     res.status(200).json({
       success: true,
       message: `Review marked as ${status}`,
-      data: updated,
+      data: finalData,
     });
   } catch (error) {
     next(error);
@@ -173,21 +175,19 @@ exports.updateReviewStatus = async (req, res, next) => {
 // @access  Private/Admin
 exports.deleteReview = async (req, res, next) => {
   try {
+    let deleted = null;
     try {
-      await Review.findByIdAndDelete(req.params.id);
+      deleted = await Review.findByIdAndDelete(req.params.id);
     } catch (_) {}
 
-    const deleted = store.deleteReview(req.params.id);
+    const storeDeleted = store.deleteReview(req.params.id);
+    const finalDeleted = deleted || storeDeleted;
 
-    if (!deleted) {
+    if (!finalDeleted) {
       return res.status(404).json({ success: false, message: 'Review not found' });
     }
 
-    res.status(200).json({
-      success: true,
-      message: 'Review permanently removed',
-      data: deleted,
-    });
+    res.status(200).json({ success: true, message: 'Review removed successfully', data: finalDeleted });
   } catch (error) {
     next(error);
   }

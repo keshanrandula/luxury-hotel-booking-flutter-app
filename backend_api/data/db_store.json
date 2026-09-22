@@ -54,7 +54,7 @@
       "city": "Dhaalu Atoll",
       "country": "Maldives",
       "rating": 5,
-      "reviewCount": 4,
+      "reviewCount": 9,
       "pricePerNight": 1450,
       "originalPrice": 1800,
       "discountPercent": 20,
@@ -321,6 +321,106 @@
     }
   ],
   "bookings": [
+    {
+      "_id": "6ab1dfa326a13a0373976024",
+      "status": "confirmed",
+      "paymentMethod": "concierge",
+      "grandTotal": 1478,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "hotelImage": "https://images.unsplash.com/photo-1540541338287-41700207dee6",
+      "location": "Dhaalu Atoll, Maldives",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita@vip.io",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-01T00:00:00.000Z",
+      "checkOut": "2026-10-05T00:00:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 4,
+      "roomTotal": 1280,
+      "taxesAndFees": 198,
+      "createdAt": "2026-09-22T01:53:41.782Z",
+      "updatedAt": "2026-09-22T01:53:39.906Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ab1df8557a1653418cb0060",
+      "status": "confirmed",
+      "paymentMethod": "concierge",
+      "grandTotal": 1478,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "hotelImage": "https://images.unsplash.com/photo-1540541338287-41700207dee6",
+      "location": "Dhaalu Atoll, Maldives",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita@vip.io",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-01T00:00:00.000Z",
+      "checkOut": "2026-10-05T00:00:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 4,
+      "roomTotal": 1280,
+      "taxesAndFees": 198,
+      "createdAt": "2026-09-22T01:53:11.245Z",
+      "updatedAt": "2026-09-22T01:53:09.863Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ab1df5cfc5a923c8583ce37",
+      "status": "confirmed",
+      "paymentMethod": "concierge",
+      "grandTotal": 1478,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "hotelImage": "https://images.unsplash.com/photo-1540541338287-41700207dee6",
+      "location": "Dhaalu Atoll, Maldives",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita@vip.io",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-01T00:00:00.000Z",
+      "checkOut": "2026-10-05T00:00:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 4,
+      "roomTotal": 1280,
+      "taxesAndFees": 198,
+      "createdAt": "2026-09-22T01:52:30.310Z",
+      "updatedAt": "2026-09-22T01:52:28.972Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ab1de2f6c6111675107ac2e",
+      "status": "confirmed",
+      "paymentMethod": "concierge",
+      "grandTotal": 1478,
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "hotelImage": "https://images.unsplash.com/photo-1540541338287-41700207dee6",
+      "location": "Dhaalu Atoll, Maldives",
+      "roomId": "rm-101",
+      "roomName": "Overwater Villa with Private Pool",
+      "guestName": "Kavita Chawla",
+      "guestEmail": "kavita@vip.io",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-01T00:00:00.000Z",
+      "checkOut": "2026-10-05T00:00:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 4,
+      "roomTotal": 1280,
+      "taxesAndFees": 198,
+      "createdAt": "2026-09-22T01:47:29.212Z",
+      "updatedAt": "2026-09-22T01:47:27.648Z",
+      "__v": 0
+    },
     {
       "_id": "BK-2493",
       "status": "confirmed",
@@ -633,6 +733,86 @@
   ],
   "reviews": [
     {
+      "_id": "rev-1790042047789",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:54:07.789Z"
+    },
+    {
+      "_id": "rev-1790042024301",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:53:44.301Z"
+    },
+    {
+      "_id": "rev-1790041992184",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:53:12.184Z"
+    },
+    {
+      "_id": "rev-1790041950958",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:52:30.958Z"
+    },
+    {
+      "_id": "rev-1790041650780",
+      "hotelId": "hotel-001",
+      "hotelName": "The St. Regis Maldives Vommuli",
+      "bookingId": "BK-8901",
+      "userId": "usr-guest",
+      "userName": "Alexander Wright",
+      "userAvatar": "",
+      "rating": 5,
+      "comment": "Unbelievable resort and overwater sanctuary!",
+      "photos": [
+        "https://images.unsplash.com/photo-1540541338287-41700207dee6"
+      ],
+      "status": "approved",
+      "createdAt": "2026-09-22T01:47:30.780Z"
+    },
+    {
       "_id": "rev-1790039663781",
       "hotelId": "hotel-001",
       "hotelName": "The St. Regis Maldives Vommuli",
@@ -646,7 +826,8 @@
         "https://images.unsplash.com/photo-1540541338287-41700207dee6"
       ],
       "status": "approved",
-      "createdAt": "2026-09-22T01:14:23.781Z"
+      "createdAt": "2026-09-22T01:14:23.781Z",
+      "updatedAt": "2026-09-22T01:47:30.794Z"
     },
     {
       "_id": "rev-1790039596119",
@@ -819,6 +1000,62 @@
     }
   ],
   "notifications": [
+    {
+      "_id": "notif-1790042021802-443",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Oct 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "6ab1dfa326a13a0373976024",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-22T01:53:41.802Z"
+    },
+    {
+      "_id": "notif-1790041991267-808",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Oct 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "6ab1df8557a1653418cb0060",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-22T01:53:11.267Z"
+    },
+    {
+      "_id": "notif-1790041950401-407",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Oct 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "6ab1df5cfc5a923c8583ce37",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-22T01:52:30.401Z"
+    },
+    {
+      "_id": "notif-1790041649323-879",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at The St. Regis Maldives Vommuli (Overwater Villa with Private Pool) is booked for Oct 1. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "6ab1de2f6c6111675107ac2e",
+        "hotelId": "hotel-001"
+      },
+      "createdAt": "2026-09-22T01:47:29.323Z"
+    },
     {
       "_id": "notif-1790039663774-738",
       "title": "Reservation Confirmed! 🛎️",
@@ -1078,5 +1315,5 @@
       "createdAt": "2026-03-10T09:00:00.000Z"
     }
   ],
-  "updatedAt": "2026-09-22T01:14:23.789Z"
+  "updatedAt": "2026-09-22T01:54:07.790Z"
 }

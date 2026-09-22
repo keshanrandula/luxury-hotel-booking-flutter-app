@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Trash2, CheckCircle2, Building, MapPin, Sparkles, DollarSign } from 'lucide-react';
+import { Plus, Trash2, CheckCircle2, Building, MapPin, Sparkles, DollarSign, UploadCloud, Image as ImageIcon, Loader2 } from 'lucide-react';
 import { HotelService } from '../services/api';
 
 export default function AddHotel({ onHotelAdded }) {
@@ -23,7 +23,27 @@ export default function AddHotel({ onHotelAdded }) {
   });
 
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [success, setSuccess] = useState(false);
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const res = await HotelService.uploadImage(file);
+      if (res && res.url) {
+        setFormData((prev) => ({
+          ...prev,
+          images: prev.images ? `${prev.images}, ${res.url}` : res.url,
+        }));
+      }
+    } catch (err) {
+      alert('Upload to Cloudinary notice: ' + (err.response?.data?.message || err.message));
+    } finally {
+      setUploadingImage(false);
+    }
+  };
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -234,14 +254,42 @@ export default function AddHotel({ onHotelAdded }) {
         {/* Section 4: Media, Description & Amenities */}
         <div className="pt-4 border-t border-slate-800/80 space-y-4">
           <div>
-            <label className="block text-xs font-semibold text-slate-300 mb-1.5">High-Res Image URLs (Comma-separated)</label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-xs font-semibold text-slate-300">Property Imagery (Cloudinary / CDN URLs)</label>
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-medium transition-colors">
+                {uploadingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UploadCloud className="w-3.5 h-3.5" />}
+                <span>{uploadingImage ? 'Uploading...' : 'Upload to Cloudinary'}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  disabled={uploadingImage}
+                  className="hidden"
+                />
+              </label>
+            </div>
             <input
               type="text"
               name="images"
               value={formData.images}
               onChange={handleChange}
+              placeholder="https://res.cloudinary.com/dioosqpp7/..."
               className="w-full bg-navy-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-gold-500 font-mono"
             />
+            {/* Image Preview Strip */}
+            {formData.images && (
+              <div className="mt-2.5 flex items-center gap-2 overflow-x-auto py-1">
+                {formData.images.split(',').map((imgUrl, i) => {
+                  const trimmed = imgUrl.trim();
+                  if (!trimmed) return null;
+                  return (
+                    <div key={i} className="relative w-16 h-12 rounded-lg overflow-hidden border border-slate-700 bg-navy-900 shrink-0">
+                      <img src={trimmed} alt={`preview-${i}`} className="w-full h-full object-cover" onError={(e) => { e.target.style.display = 'none'; }} />
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
           <div>
