@@ -4,6 +4,7 @@
 
 [![Flutter](https://img.shields.io/badge/Flutter-3.24+-02569B?style=for-the-badge&logo=flutter&logoColor=white)](https://flutter.dev)
 [![Dart](https://img.shields.io/badge/Dart-3.5+-0175C2?style=for-the-badge&logo=dart&logoColor=white)](https://dart.dev)
+[![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD-GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white)]()
 [![State Management](https://img.shields.io/badge/State_Management-BLoC_v8-blueviolet?style=for-the-badge)](https://bloclibrary.dev)
 [![Architecture](https://img.shields.io/badge/Architecture-Clean_Architecture-green?style=for-the-badge)]()
 [![Backend](https://img.shields.io/badge/Backend-Node.js_Express-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)

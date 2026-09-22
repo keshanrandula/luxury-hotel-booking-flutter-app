@@ -1,0 +1,119 @@
+name: Hotel System CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master, dev ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  # ==========================================
+  # 1. FLUTTER MOBILE APP CI/CD
+  # ==========================================
+  flutter-mobile-ci:
+    name: 📱 Flutter App (Test & Build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mobile_app
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: ☕ Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: 🐦 Set up Flutter SDK
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+
+      - name: 📦 Install Flutter Dependencies
+        run: flutter pub get
+
+      - name: 🧪 Run Flutter Unit & Widget Tests
+        run: flutter test --coverage
+
+      - name: 🔨 Build Android APK (Debug)
+        run: flutter build apk --debug
+
+      - name: 📤 Upload Flutter APK Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: luxury-stays-mobile-apk
+          path: mobile_app/build/app/outputs/flutter-apk/app-debug.apk
+          if-no-files-found: warn
+          retention-days: 14
+
+  # ==========================================
+  # 2. BACKEND API CI
+  # ==========================================
+  backend-api-ci:
+    name: 🌐 Backend API (Test & Verification)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend_api
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-key: ${{ runner.os }}-backend-${{ hashFiles('backend_api/package-lock.json') }}
+
+      - name: 📦 Install Backend Dependencies
+        run: npm install
+
+      - name: 🧪 Execute Backend API Endpoint Test Suite
+        run: node test_api.js
+        env:
+          PORT: 5001
+          NODE_ENV: test
+          JWT_SECRET: ci_cd_test_jwt_secret_key_2026
+
+  # ==========================================
+  # 3. ADMIN PANEL WEB CI
+  # ==========================================
+  admin-panel-ci:
+    name: 💻 Admin Panel (Vite Build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: admin_panel
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🟢 Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+          cache-key: ${{ runner.os }}-admin-${{ hashFiles('admin_panel/package-lock.json') }}
+
+      - name: 📦 Install Admin Dependencies
+        run: npm install
+
+      - name: 🔨 Build Vite Production Bundle
+        run: npm run build
+
+      - name: 📤 Upload Admin Dist Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: admin-panel-web-dist
+          path: admin_panel/dist/
+          if-no-files-found: warn
+          retention-days: 14
