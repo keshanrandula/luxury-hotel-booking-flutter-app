@@ -222,70 +222,28 @@ const initialHotels = [
 
 const initialUsers = [
   {
-    _id: 'usr-001',
-    name: 'Alexander Wright',
-    email: 'alexander@luxurystays.io',
+    _id: 'usr-admin',
+    name: 'System Administrator',
+    email: 'admin@luxurystays.io',
     role: 'admin',
     tier: 'Black Diamond VIP',
-    points: 92500,
-    phone: '+1 (555) 902-1200',
+    points: 100000,
+    phone: '+94 77 123 4567',
+    country: 'Sri Lanka',
     avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
-    createdAt: '2025-11-12T08:00:00.000Z',
+    createdAt: '2026-09-20T08:00:00.000Z',
   },
   {
-    _id: 'usr-002',
-    name: 'Eleanor Vance',
-    email: 'eleanor.vance@vip.io',
-    role: 'vip',
-    tier: 'Platinum Elite',
-    points: 48200,
-    phone: '+1 (555) 438-9921',
-    avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80',
-    createdAt: '2025-12-05T14:30:00.000Z',
-  },
-  {
-    _id: 'usr-003',
-    name: 'Lord Harrison Smith',
-    email: 'harrison.smith@royale.com',
-    role: 'vip',
-    tier: 'Black Diamond VIP',
-    points: 114000,
-    phone: '+44 20 7946 0912',
-    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80',
-    createdAt: '2026-01-08T09:10:00.000Z',
-  },
-  {
-    _id: 'usr-004',
-    name: 'Kavita Chawla',
-    email: 'kavita.c@emirates.ae',
-    role: 'vip',
-    tier: 'Gold Member',
-    points: 29500,
-    phone: '+971 50 123 4567',
-    avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80',
-    createdAt: '2026-01-22T16:45:00.000Z',
-  },
-  {
-    _id: 'usr-005',
-    name: 'Marcus Sterling',
-    email: 'marcus.sterling@travel.io',
+    _id: 'usr-1790128790142',
+    name: 'Keshanrandula',
+    email: 'keshanrandula@gmail.com',
     role: 'member',
-    tier: 'Gold Member',
-    points: 18400,
-    phone: '+1 (555) 334-1188',
-    avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80',
-    createdAt: '2026-02-14T11:20:00.000Z',
-  },
-  {
-    _id: 'usr-006',
-    name: 'Sophia Montgomery',
-    email: 'sophia.m@monaco-yachts.mc',
-    role: 'vip',
-    tier: 'Platinum Elite',
-    points: 62000,
-    phone: '+377 98 98 00 00',
-    avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80',
-    createdAt: '2026-03-02T13:10:00.000Z',
+    tier: 'Silver Prestige',
+    points: 5000,
+    phone: '0761942616',
+    country: 'Sri Lanka',
+    avatarUrl: '',
+    createdAt: '2026-09-23T01:59:50.142Z',
   },
 ];
 
@@ -737,6 +695,42 @@ class DataStore {
       const deleted = this.hotels.splice(idx, 1);
       this.save();
       return deleted[0];
+    }
+    return null;
+  }
+
+  // --- Users ---
+  getUsers() {
+    return [...this.users];
+  }
+
+  getUserById(id) {
+    return this.users.find((u) => String(u._id) === String(id));
+  }
+
+  addUser(userData) {
+    const newUser = {
+      _id: `usr-${Date.now()}`,
+      role: 'member',
+      tier: 'Silver Prestige',
+      points: 5000,
+      avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80',
+      phone: '+1 (555) 234-5678',
+      country: 'Sri Lanka',
+      ...userData,
+      createdAt: new Date().toISOString(),
+    };
+    this.users.unshift(newUser);
+    this.save();
+    return newUser;
+  }
+
+  updateUser(id, userData) {
+    const idx = this.users.findIndex((u) => String(u._id) === String(id));
+    if (idx !== -1) {
+      this.users[idx] = { ...this.users[idx], ...userData, updatedAt: new Date().toISOString() };
+      this.save();
+      return this.users[idx];
     }
     return null;
   }

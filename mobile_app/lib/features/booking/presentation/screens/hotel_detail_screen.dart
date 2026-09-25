@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/utils/currency_formatter.dart';
+import '../../../auth/presentation/bloc/auth_bloc.dart';
+import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../auth/presentation/screens/login_screen.dart';
 import '../../domain/entities/hotel_entity.dart';
 import '../../domain/entities/room_entity.dart';
 import '../bloc/hotel_bloc.dart';
@@ -520,6 +523,102 @@ class _HotelDetailScreenState extends State<HotelDetailScreen> {
                     const Spacer(),
                     ElevatedButton(
                       onPressed: () {
+                        final authState = context.read<AuthBloc>().state;
+                        final isAuthenticated = authState.status == AuthStatus.authenticated && !authState.isGuest && authState.user != null;
+
+                        if (!isAuthenticated) {
+                          showModalBottomSheet(
+                            context: context,
+                            backgroundColor: isDark ? AppColors.surfaceDark : Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+                            ),
+                            builder: (bContext) => Padding(
+                              padding: const EdgeInsets.fromLTRB(24, 24, 24, 36),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  Center(
+                                    child: Container(
+                                      width: 44,
+                                      height: 4,
+                                      decoration: BoxDecoration(
+                                        color: Colors.grey.withOpacity(0.3),
+                                        borderRadius: BorderRadius.circular(2),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        padding: const EdgeInsets.all(12),
+                                        decoration: BoxDecoration(
+                                          gradient: AppColors.goldGradient,
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: const Icon(Icons.lock_person_rounded, color: Colors.white, size: 24),
+                                      ),
+                                      const SizedBox(width: 14),
+                                      const Expanded(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Member Sign In Required',
+                                              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800),
+                                            ),
+                                            SizedBox(height: 2),
+                                            Text(
+                                              'Please sign in or create an account to book your stay',
+                                              style: TextStyle(fontSize: 12, color: Colors.grey),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 24),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pop(bContext);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(builder: (_) => const LoginScreen()),
+                                      ).then((_) {
+                                        if (!mounted) return;
+                                        final newAuth = context.read<AuthBloc>().state;
+                                        if (newAuth.status == AuthStatus.authenticated && !newAuth.isGuest) {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (_) => BookingCheckoutScreen(
+                                                hotel: hotel,
+                                                selectedRoom: _selectedRoom,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                      });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: AppColors.accentGold,
+                                      padding: const EdgeInsets.symmetric(vertical: 16),
+                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                    ),
+                                    child: const Text(
+                                      'Sign In / Register to Book',
+                                      style: TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w700),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                          return;
+                        }
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(

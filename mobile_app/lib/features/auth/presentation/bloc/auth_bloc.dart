@@ -41,7 +41,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(state.copyWith(status: AuthStatus.loading, errorMessage: null));
     try {
-      final user = await authRepository.login(event.email, event.password);
+      final user = await authRepository.login(
+        event.email,
+        event.password,
+        phone: event.phone,
+        country: event.country,
+      );
       emit(state.copyWith(
         status: AuthStatus.authenticated,
         user: user,
@@ -61,7 +66,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async {
     emit(state.copyWith(status: AuthStatus.loading, errorMessage: null));
     try {
-      final user = await authRepository.register(event.name, event.email, event.password);
+      final user = await authRepository.register(
+        event.name,
+        event.email,
+        event.password,
+        phone: event.phone,
+        country: event.country,
+      );
       emit(state.copyWith(
         status: AuthStatus.authenticated,
         user: user,

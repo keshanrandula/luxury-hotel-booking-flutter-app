@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/services/notification_service.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../auth/presentation/screens/login_screen.dart';
 import '../../../notifications/presentation/screens/notifications_screen.dart';
 import '../../domain/entities/hotel_entity.dart';
 import '../bloc/hotel_bloc.dart';
@@ -98,67 +99,100 @@ class _HomeExploreScreenState extends State<HomeExploreScreen> {
                       BlocBuilder<AuthBloc, AuthState>(
                         builder: (context, authState) {
                           final user = authState.user;
-                          final name = user?.name.split(' ').first ?? 'Explorer';
-                          final tier = user?.tier ?? 'Member';
+                          final isAuthenticated = authState.status == AuthStatus.authenticated && !authState.isGuest && user != null;
+                          final name = isAuthenticated ? user.name.split(' ').first : 'Explorer';
+                          final tier = user?.tier ?? 'Silver Prestige';
 
                           return Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Welcome back, $name',
-                                        style: TextStyle(
-                                          fontSize: 14,
-                                          color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                                          fontWeight: FontWeight.w500,
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Flexible(
+                                          child: Text(
+                                            isAuthenticated ? 'Welcome back, $name' : 'Welcome, Explorer',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(width: 6),
-                                      const Icon(Icons.verified_rounded, size: 16, color: AppColors.accentGold),
-                                    ],
-                                  ),
-                                  const SizedBox(height: 4),
-                                  Text(
-                                    'Discover Sanctuaries',
-                                    style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w800,
-                                      letterSpacing: -0.5,
-                                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  // VIP Tier Badge
-                                  Container(
-                                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      gradient: AppColors.goldGradient,
-                                      borderRadius: BorderRadius.circular(20),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.accentGold.withOpacity(0.3),
-                                          blurRadius: 8,
-                                          offset: const Offset(0, 3),
+                                        const SizedBox(width: 6),
+                                        Icon(
+                                          isAuthenticated ? Icons.verified_rounded : Icons.star_border_purple500_rounded,
+                                          size: 16,
+                                          color: AppColors.accentGold,
                                         ),
                                       ],
                                     ),
-                                    child: Text(
-                                      tier.toUpperCase(),
-                                      style: const TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10,
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      'Discover Sanctuaries',
+                                      style: TextStyle(
+                                        fontSize: 24,
                                         fontWeight: FontWeight.w800,
-                                        letterSpacing: 0.8,
+                                        letterSpacing: -0.5,
+                                        color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
                                       ),
                                     ),
-                                  ),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(width: 10),
+                              Row(
+                                children: [
+                                  if (isAuthenticated)
+                                    // VIP Tier Badge
+                                    Container(
+                                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                      decoration: BoxDecoration(
+                                        gradient: AppColors.goldGradient,
+                                        borderRadius: BorderRadius.circular(20),
+                                        boxShadow: [
+                                          BoxShadow(
+                                            color: AppColors.accentGold.withOpacity(0.3),
+                                            blurRadius: 8,
+                                            offset: const Offset(0, 3),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Text(
+                                        tier.toUpperCase(),
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w800,
+                                          letterSpacing: 0.8,
+                                        ),
+                                      ),
+                                    )
+                                  else
+                                    // Sign In Button
+                                    ElevatedButton.icon(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(builder: (_) => const LoginScreen()),
+                                        );
+                                      },
+                                      icon: const Icon(Icons.person_rounded, size: 15, color: Colors.white),
+                                      label: const Text(
+                                        'Sign In',
+                                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white),
+                                      ),
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.accentGold,
+                                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+                                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                        elevation: 2,
+                                      ),
+                                    ),
                                   const SizedBox(width: 8),
 
                                   // Notification Bell Icon with Badge
@@ -236,6 +270,7 @@ class _HomeExploreScreenState extends State<HomeExploreScreen> {
                               context.read<HotelBloc>().add(FilterCategoryEvent(cat));
                             },
                             onSearchSubmitted: _onSearch,
+                            onSearchChanged: _onSearch,
                           );
                         },
                       ),

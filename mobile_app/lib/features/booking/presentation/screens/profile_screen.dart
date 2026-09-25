@@ -5,6 +5,7 @@ import '../../../../core/local_storage/hive_service.dart';
 import '../../../auth/presentation/bloc/auth_bloc.dart';
 import '../../../auth/presentation/bloc/auth_event.dart';
 import '../../../auth/presentation/bloc/auth_state.dart';
+import '../../../auth/presentation/screens/login_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   final Function(bool) onThemeToggle;
@@ -44,129 +45,241 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: BlocBuilder<AuthBloc, AuthState>(
         builder: (context, authState) {
           final user = authState.user;
-          final isGuest = authState.isGuest;
+          final isAuthenticated = authState.status == AuthStatus.authenticated && !authState.isGuest && user != null;
 
           return SingleChildScrollView(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                // Member Card
-                Container(
-                  padding: const EdgeInsets.all(22),
-                  decoration: BoxDecoration(
-                    gradient: isDarkTheme ? AppColors.darkCardGradient : const LinearGradient(
-                      colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(24),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        blurRadius: 20,
-                        offset: const Offset(0, 8),
+                if (!isAuthenticated) ...[
+                  // Guest / Sign In Banner
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      gradient: isDarkTheme ? AppColors.darkCardGradient : const LinearGradient(
+                        colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          CircleAvatar(
-                            radius: 30,
-                            backgroundImage: user?.avatarUrl != null ? NetworkImage(user!.avatarUrl!) : null,
-                            backgroundColor: AppColors.accentGold.withOpacity(0.3),
-                            child: user?.avatarUrl == null
-                                ? Text(
-                                    user?.name.isNotEmpty == true ? user!.name[0] : 'G',
-                                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
-                                  )
-                                : null,
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.25),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                gradient: AppColors.goldGradient,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.star_rounded, color: Colors.white, size: 28),
+                            ),
+                            const SizedBox(width: 14),
+                            const Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    'Unlock VIP Privileges',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  SizedBox(height: 2),
+                                  Text(
+                                    'Sign in or become a member to manage bookings & rewards',
+                                    style: TextStyle(
+                                      color: Colors.white70,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 18),
+                        ElevatedButton.icon(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (_) => const LoginScreen()),
+                            );
+                          },
+                          icon: const Icon(Icons.login_rounded, size: 18, color: Colors.white),
+                          label: const Text(
+                            'Sign In / Register',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
                           ),
-                          const SizedBox(width: 16),
-                          Expanded(
-                            child: Column(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: AppColors.accentGold,
+                            padding: const EdgeInsets.symmetric(vertical: 14),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                ] else ...[
+                  // Member Card
+                  Container(
+                    padding: const EdgeInsets.all(22),
+                    decoration: BoxDecoration(
+                      gradient: isDarkTheme ? AppColors.darkCardGradient : const LinearGradient(
+                        colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                      ),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 20,
+                          offset: const Offset(0, 8),
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 30,
+                              backgroundImage: user.avatarUrl != null ? NetworkImage(user.avatarUrl!) : null,
+                              backgroundColor: AppColors.accentGold.withOpacity(0.3),
+                              child: user.avatarUrl == null
+                                  ? Text(
+                                      user.name.isNotEmpty == true ? user.name[0] : 'U',
+                                      style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: Colors.white),
+                                    )
+                                  : null,
+                            ),
+                            const SizedBox(width: 16),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    user.name,
+                                    style: const TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    user.email,
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.7),
+                                      fontSize: 12.5,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 20),
+                        const Divider(color: Colors.white24),
+                        const SizedBox(height: 12),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  user?.name ?? 'Guest Traveler',
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
+                                  'MEMBERSHIP TIER',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.6),
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w700,
+                                    letterSpacing: 1.0,
                                   ),
                                 ),
                                 const SizedBox(height: 2),
                                 Text(
-                                  user?.email ?? 'guest@luxurystays.io',
-                                  style: TextStyle(
-                                    color: Colors.white.withOpacity(0.7),
-                                    fontSize: 12.5,
+                                  user.tier,
+                                  style: const TextStyle(
+                                    color: AppColors.accentGoldLight,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  'LUXURY POINTS',
+                                  style: TextStyle(
+                                    color: Colors.white.withOpacity(0.6),
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w700,
+                                    letterSpacing: 1.0,
+                                  ),
+                                ),
+                                const SizedBox(height: 2),
+                                Text(
+                                  '${user.points} pts',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w800,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Member Personal Details
+                  _buildSettingsSection(
+                    title: 'Personal & VIP Details',
+                    isDark: isDarkTheme,
+                    children: [
+                      _buildTile(
+                        icon: Icons.phone_android_rounded,
+                        title: 'Contact Number',
+                        subtitle: user.phone?.isNotEmpty == true ? user.phone! : '+94 77 123 4567',
                       ),
-                      const SizedBox(height: 20),
-                      const Divider(color: Colors.white24),
-                      const SizedBox(height: 12),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                'MEMBERSHIP TIER',
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.6),
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.0,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                user?.tier ?? 'Silver Prestige',
-                                style: const TextStyle(
-                                  color: AppColors.accentGoldLight,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                'LUXURY POINTS',
-                                style: TextStyle(
-                                  color: Colors.white.withOpacity(0.6),
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.0,
-                                ),
-                              ),
-                              const SizedBox(height: 2),
-                              Text(
-                                '${user?.points ?? 2500} pts',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w800,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
+                      _buildTile(
+                        icon: Icons.public_rounded,
+                        title: 'Country / Residence',
+                        subtitle: user.country?.isNotEmpty == true ? user.country! : 'Sri Lanka',
+                      ),
+                      _buildTile(
+                        icon: Icons.alternate_email_rounded,
+                        title: 'Registered Email',
+                        subtitle: user.email,
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(height: 24),
+                  const SizedBox(height: 16),
+                ],
 
                 // Settings List
                 _buildSettingsSection(
@@ -218,32 +331,33 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ),
                 const SizedBox(height: 24),
 
-                // Logout Button
-                OutlinedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  foregroundColor: AppColors.error,
-                  side: const BorderSide(color: AppColors.error),
-                ).let(
-                  (style) => SizedBox(
-                    width: double.infinity,
-                    child: OutlinedButton.icon(
-                      style: OutlinedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        foregroundColor: AppColors.error,
-                        side: const BorderSide(color: AppColors.error),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      ),
-                      onPressed: () {
-                        context.read<AuthBloc>().add(LogoutEvent());
-                      },
-                      icon: const Icon(Icons.logout_rounded, size: 18),
-                      label: Text(
-                        isGuest ? 'Exit Guest Mode' : 'Sign Out',
-                        style: const TextStyle(fontWeight: FontWeight.w700),
+                if (isAuthenticated)
+                  // Logout Button
+                  OutlinedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(vertical: 14),
+                    foregroundColor: AppColors.error,
+                    side: const BorderSide(color: AppColors.error),
+                  ).let(
+                    (style) => SizedBox(
+                      width: double.infinity,
+                      child: OutlinedButton.icon(
+                        style: OutlinedButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          foregroundColor: AppColors.error,
+                          side: const BorderSide(color: AppColors.error),
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                        ),
+                        onPressed: () {
+                          context.read<AuthBloc>().add(LogoutEvent());
+                        },
+                        icon: const Icon(Icons.logout_rounded, size: 18),
+                        label: const Text(
+                          'Sign Out',
+                          style: TextStyle(fontWeight: FontWeight.w700),
+                        ),
                       ),
                     ),
                   ),
-                ),
               ],
             ),
           );

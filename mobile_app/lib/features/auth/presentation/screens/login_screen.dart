@@ -19,8 +19,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-  final _emailController = TextEditingController(text: 'alexander.wright@luxury.io');
-  final _passwordController = TextEditingController(text: 'secret123');
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
   bool _obscurePassword = true;
 
   @override
@@ -41,10 +41,6 @@ class _LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _onGuestPressed() {
-    context.read<AuthBloc>().add(GuestLoginEvent());
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -52,7 +48,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state.status == AuthStatus.error && state.errorMessage != null) {
+        if (state.status == AuthStatus.authenticated) {
+          if (Navigator.canPop(context)) {
+            Navigator.pop(context);
+          }
+        } else if (state.status == AuthStatus.error && state.errorMessage != null) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
               content: Text(state.errorMessage!),
@@ -63,6 +63,15 @@ class _LoginScreenState extends State<LoginScreen> {
         }
       },
       child: Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_rounded, color: Colors.white),
+            onPressed: () => Navigator.maybePop(context),
+          ),
+        ),
         body: Stack(
           children: [
             // Luxury Background Image
@@ -190,6 +199,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 validator: Validators.validateEmail,
                                 decoration: const InputDecoration(
                                   labelText: 'Email Address',
+                                  hintText: 'e.g. member@luxurystays.com',
                                   prefixIcon: Icon(Icons.email_outlined, size: 20),
                                 ),
                               ),
@@ -252,22 +262,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                   );
                                 },
                               ),
-                              const SizedBox(height: 12),
-
-                              // Guest Mode Button
-                              OutlinedButton(
-                                onPressed: _onGuestPressed,
-                                style: OutlinedButton.styleFrom(
-                                  padding: const EdgeInsets.symmetric(vertical: 14),
-                                  side: BorderSide(
-                                    color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                                  ),
-                                ),
-                                child: const Text(
-                                  'Explore as Guest',
-                                  style: TextStyle(fontWeight: FontWeight.w600),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -304,6 +298,24 @@ class _LoginScreenState extends State<LoginScreen> {
                           ],
                         ),
                         const SizedBox(height: 16),
+
+                        // Continue as Guest button
+                        TextButton(
+                          onPressed: () {
+                            if (Navigator.canPop(context)) {
+                              Navigator.pop(context);
+                            }
+                          },
+                          child: Text(
+                            'Continue as Guest / Explore Hotels →',
+                            style: TextStyle(
+                              color: Colors.white.withOpacity(0.7),
+                              fontSize: 13,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 12),
                       ],
                     ),
                   ),

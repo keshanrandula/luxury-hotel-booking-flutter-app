@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Plus, Building2, MapPin, DollarSign, Star, Trash2, Edit3, X, Check, Sparkles } from 'lucide-react';
+import { Plus, Building2, MapPin, DollarSign, Star, Trash2, Edit3, X, Check, Sparkles, UploadCloud, Loader2 } from 'lucide-react';
 import { HotelService } from '../services/api';
 
 const AVAILABLE_AMENITIES = [
@@ -19,6 +19,7 @@ export default function Listings({ hotels, onHotelAdded, onHotelDeleted }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [loading, setLoading] = useState(false);
+  const [uploadingImage, setUploadingImage] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
 
   // Form State
@@ -35,6 +36,26 @@ export default function Listings({ hotels, onHotelAdded, onHotelDeleted }) {
     amenities: ['Private Ocean Pool', 'Overwater Spa', 'Fine Dining'],
     isFeatured: true,
   });
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setUploadingImage(true);
+    try {
+      const res = await HotelService.uploadImage(file);
+      if (res && (res.url || res.localUrl)) {
+        setFormData((prev) => ({
+          ...prev,
+          imageUrl: res.url || res.localUrl,
+        }));
+      }
+    } catch (err) {
+      console.warn('Image upload error:', err);
+    } finally {
+      setUploadingImage(false);
+      e.target.value = '';
+    }
+  };
 
   const toggleAmenity = (amenity) => {
     setFormData((prev) => {
@@ -333,14 +354,38 @@ export default function Listings({ hotels, onHotelAdded, onHotelDeleted }) {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-300 mb-1">Cover Image URL</label>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="block text-xs font-semibold text-slate-300">Cover Image (Local Photo / URL)</label>
+                  <label className="cursor-pointer inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-medium transition-colors">
+                    {uploadingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UploadCloud className="w-3.5 h-3.5" />}
+                    <span>{uploadingImage ? 'Uploading...' : 'Choose File'}</span>
+                    <input
+                      type="file"
+                      accept="image/*"
+                      onChange={handleFileUpload}
+                      disabled={uploadingImage}
+                      className="hidden"
+                    />
+                  </label>
+                </div>
                 <input
-                  type="url"
+                  type="text"
                   required
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                  placeholder="Paste URL or click Choose File"
                   className="w-full bg-navy-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-gold-500 font-mono"
                 />
+                {formData.imageUrl && (
+                  <div className="mt-2 relative w-20 h-14 rounded-lg overflow-hidden border border-slate-700 bg-navy-900">
+                    <img
+                      src={formData.imageUrl}
+                      alt="Preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => { e.target.style.display = 'none'; }}
+                    />
+                  </div>
+                )}
               </div>
 
               {/* Amenities Selector Chips */}

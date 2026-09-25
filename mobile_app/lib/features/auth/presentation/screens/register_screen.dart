@@ -20,6 +20,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
+  final _phoneController = TextEditingController();
+  final _countryController = TextEditingController(text: 'Sri Lanka');
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
 
@@ -27,6 +29,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
+    _phoneController.dispose();
+    _countryController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -38,6 +42,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
               name: _nameController.text.trim(),
               email: _emailController.text.trim(),
               password: _passwordController.text,
+              phone: _phoneController.text.trim().isNotEmpty ? _phoneController.text.trim() : '+94 77 123 4567',
+              country: _countryController.text.trim().isNotEmpty ? _countryController.text.trim() : 'Sri Lanka',
             ),
           );
     }
@@ -164,6 +170,39 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               const SizedBox(height: 16),
 
                               TextFormField(
+                                controller: _phoneController,
+                                keyboardType: TextInputType.phone,
+                                validator: (v) {
+                                  if (v == null || v.trim().isEmpty) {
+                                    return 'Please enter contact number';
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  labelText: 'Contact Number',
+                                  hintText: '+94 77 123 4567',
+                                  prefixIcon: Icon(Icons.phone_outlined, size: 20),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+
+                              TextFormField(
+                                controller: _countryController,
+                                validator: (v) {
+                                  if (v == null || v.trim().isEmpty) {
+                                    return 'Please enter your country';
+                                  }
+                                  return null;
+                                },
+                                decoration: const InputDecoration(
+                                  labelText: 'Country / Residence',
+                                  hintText: 'e.g. Sri Lanka, United States',
+                                  prefixIcon: Icon(Icons.public_outlined, size: 20),
+                                ),
+                              ),
+                              const SizedBox(height: 16),
+
+                              TextFormField(
                                 controller: _passwordController,
                                 obscureText: _obscurePassword,
                                 validator: Validators.validatePassword,
@@ -220,6 +259,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             ],
                           ),
                         ),
+                        const SizedBox(height: 24),
+
+                        // Switch to Login
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Already have an account? ',
+                              style: TextStyle(
+                                color: Colors.white.withOpacity(0.8),
+                                fontSize: 14,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text(
+                                'Sign In',
+                                style: TextStyle(
+                                  color: AppColors.accentGoldLight,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 16),
                       ],
                     ),
                   ),

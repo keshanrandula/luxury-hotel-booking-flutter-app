@@ -13,7 +13,7 @@ const generateToken = (id, role) => {
 // @access  Public
 exports.register = async (req, res, next) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, phone, country } = req.body;
 
     let user;
     try {
@@ -24,6 +24,8 @@ exports.register = async (req, res, next) => {
         role: role || 'member',
         tier: 'Silver Prestige',
         points: 5000,
+        phone: phone || '+94 77 123 4567',
+        country: country || 'Sri Lanka',
       });
     } catch (_) {}
 
@@ -33,6 +35,8 @@ exports.register = async (req, res, next) => {
       role: role || 'member',
       tier: 'Silver Prestige',
       points: 5000,
+      phone: phone || '+94 77 123 4567',
+      country: country || 'Sri Lanka',
     });
 
     const token = generateToken(savedUser._id, savedUser.role);
@@ -52,13 +56,56 @@ exports.register = async (req, res, next) => {
 // @access  Public
 exports.login = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
+    const { email, password, phone, country } = req.body;
+    const cleanEmail = (email || '').trim().toLowerCase();
 
+    // 1. Sync with MongoDB
+    let mongoUser;
+    try {
+      mongoUser = await User.findOne({ email: cleanEmail });
+      if (mongoUser) {
+        if (phone) mongoUser.phone = phone;
+        if (country) mongoUser.country = country;
+        await mongoUser.save();
+      } else if (cleanEmail) {
+        const namePart = cleanEmail.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+        mongoUser = await User.create({
+          name: namePart || 'VIP Member',
+          email: cleanEmail,
+          password: password || 'defaultPass123',
+          phone: phone || '+94 77 123 4567',
+          country: country || 'Sri Lanka',
+          role: 'member',
+          tier: 'Silver Prestige',
+          points: 5000,
+        });
+      }
+    } catch (_) {}
+
+    // 2. Sync with dataStore
     const allUsers = store.getUsers();
-    const existing = allUsers.find((u) => u.email.toLowerCase() === (email || '').toLowerCase());
+    const existing = allUsers.find((u) => u.email && u.email.toLowerCase() === cleanEmail);
 
-    const userObj = existing || allUsers[0];
-    const token = generateToken(userObj._id, userObj.role || 'admin');
+    let userObj;
+    if (existing) {
+      if (phone) existing.phone = phone;
+      if (country) existing.country = country;
+      store.save();
+      userObj = existing;
+    } else {
+      const name = cleanEmail.split('@')[0].replace(/[._]/g, ' ').replace(/\b\w/g, (l) => l.toUpperCase());
+      userObj = store.addUser({
+        name: name || 'VIP Member',
+        email: cleanEmail,
+        phone: phone || '+94 77 123 4567',
+        country: country || 'Sri Lanka',
+        role: 'member',
+        tier: 'Silver Prestige',
+        points: 5000,
+      });
+    }
+
+    const token = generateToken(userObj._id, userObj.role || 'member');
 
     res.status(200).json({
       success: true,
@@ -90,14 +137,53 @@ exports.getMe = async (req, res, next) => {
 // @access  Private/Admin
 exports.getAllUsers = async (req, res, next) => {
   try {
-    let users = [];
+    let mongoUsers = [];
     try {
-      users = await User.find().sort('-createdAt');
+      mongoUsers = await User.find().sort('-createdAt');
     } catch (_) {}
 
-    if (!users || users.length === 0) {
-      users = store.getUsers();
-    }
+    const storeUsers = store.getUsers() || [];
+    
+    // Merge users uniquely by email
+    const usersMap = new Map();
+
+    // Add store users
+    storeUsers.forEach((u) => {
+      if (u.email) {
+        usersMap.set(u.email.toLowerCase(), {
+          _id: u._id,
+          name: u.name,
+          email: u.email,
+          role: u.role || 'member',
+          tier: u.tier || 'Silver Prestige',
+          points: u.points || 5000,
+          phone: u.phone,
+          country: u.country,
+          avatarUrl: u.avatarUrl || '',
+          createdAt: u.createdAt || new Date().toISOString(),
+        });
+      }
+    });
+
+    // Add/overwrite with MongoDB users
+    mongoUsers.forEach((u) => {
+      if (u.email) {
+        usersMap.set(u.email.toLowerCase(), {
+          _id: u._id,
+          name: u.name,
+          email: u.email,
+          role: u.role || 'member',
+          tier: u.tier || 'Silver Prestige',
+          points: u.points || 5000,
+          phone: u.phone,
+          country: u.country,
+          avatarUrl: u.avatarUrl || '',
+          createdAt: u.createdAt || new Date().toISOString(),
+        });
+      }
+    });
+
+    const users = Array.from(usersMap.values());
 
     res.status(200).json({
       success: true,

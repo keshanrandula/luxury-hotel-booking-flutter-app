@@ -3,8 +3,19 @@ import '../../../../core/network/api_client.dart';
 import '../models/user_model.dart';
 
 abstract class AuthRemoteDataSource {
-  Future<(UserModel, String)> login(String email, String password);
-  Future<(UserModel, String)> register(String name, String email, String password);
+  Future<(UserModel, String)> login(
+    String email,
+    String password, {
+    String? phone,
+    String? country,
+  });
+  Future<(UserModel, String)> register(
+    String name,
+    String email,
+    String password, {
+    String? phone,
+    String? country,
+  });
   Future<void> logout();
 }
 
@@ -14,10 +25,20 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl({required this.apiClient});
 
   @override
-  Future<(UserModel, String)> login(String email, String password) async {
+  Future<(UserModel, String)> login(
+    String email,
+    String password, {
+    String? phone,
+    String? country,
+  }) async {
     final response = await apiClient.post(
       ApiEndpoints.login,
-      data: {'email': email, 'password': password},
+      data: {
+        'email': email,
+        'password': password,
+        'phone': phone,
+        'country': country,
+      },
     );
 
     final data = response.data as Map<String, dynamic>;
@@ -27,10 +48,22 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   }
 
   @override
-  Future<(UserModel, String)> register(String name, String email, String password) async {
+  Future<(UserModel, String)> register(
+    String name,
+    String email,
+    String password, {
+    String? phone,
+    String? country,
+  }) async {
     final response = await apiClient.post(
       ApiEndpoints.register,
-      data: {'name': name, 'email': email, 'password': password},
+      data: {
+        'name': name,
+        'email': email,
+        'password': password,
+        'phone': phone,
+        'country': country,
+      },
     );
 
     final data = response.data as Map<String, dynamic>;

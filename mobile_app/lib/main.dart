@@ -12,8 +12,6 @@ import 'features/auth/data/datasources/auth_remote_data_source.dart';
 import 'features/auth/data/repositories/auth_repository_impl.dart';
 import 'features/auth/presentation/bloc/auth_bloc.dart';
 import 'features/auth/presentation/bloc/auth_event.dart';
-import 'features/auth/presentation/bloc/auth_state.dart';
-import 'features/auth/presentation/screens/login_screen.dart';
 import 'features/booking/data/datasources/booking_local_data_source.dart';
 import 'features/booking/data/datasources/booking_remote_data_source.dart';
 import 'features/booking/data/datasources/hotel_local_data_source.dart';
@@ -110,14 +108,7 @@ class _LuxeHotelAppState extends State<LuxeHotelApp> {
         darkTheme: AppTheme.darkTheme,
         themeMode: _isDarkMode ? ThemeMode.dark : ThemeMode.light,
         onGenerateRoute: (settings) => AppRouter.generateRoute(settings, onThemeToggle: _updateTheme),
-        home: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            if (state.status == AuthStatus.authenticated) {
-              return MainNavigationShell(onThemeToggle: _updateTheme);
-            }
-            return const LoginScreen();
-          },
-        ),
+        home: MainNavigationShell(onThemeToggle: _updateTheme),
       ),
     );
   }

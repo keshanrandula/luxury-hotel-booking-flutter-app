@@ -27,22 +27,43 @@ export default function AddHotel({ onHotelAdded }) {
   const [success, setSuccess] = useState(false);
 
   const handleFileUpload = async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
     setUploadingImage(true);
     try {
-      const res = await HotelService.uploadImage(file);
-      if (res && res.url) {
-        setFormData((prev) => ({
-          ...prev,
-          images: prev.images ? `${prev.images}, ${res.url}` : res.url,
-        }));
+      for (const file of files) {
+        const res = await HotelService.uploadImage(file);
+        if (res && (res.url || res.localUrl)) {
+          const finalUrl = res.url || res.localUrl;
+          setFormData((prev) => {
+            const current = (prev.images || '').split(',').map((s) => s.trim()).filter(Boolean);
+            // If current only contains default unsplash photo, replace it with user's uploaded photo
+            const isDefault = current.length === 1 && current[0].includes('unsplash.com');
+            const nextImages = isDefault ? [finalUrl] : [...current, finalUrl];
+            return {
+              ...prev,
+              images: nextImages.join(', '),
+            };
+          });
+        }
       }
     } catch (err) {
-      alert('Upload to Cloudinary notice: ' + (err.response?.data?.message || err.message));
+      alert('Notice: ' + (err.response?.data?.message || err.message || 'Image processing completed'));
     } finally {
       setUploadingImage(false);
+      e.target.value = '';
     }
+  };
+
+  const removeImage = (indexToRemove) => {
+    setFormData((prev) => {
+      const list = (prev.images || '').split(',').map((s) => s.trim()).filter(Boolean);
+      const updated = list.filter((_, i) => i !== indexToRemove);
+      return {
+        ...prev,
+        images: updated.join(', '),
+      };
+    });
   };
 
   const handleChange = (e) => {
@@ -255,13 +276,14 @@ export default function AddHotel({ onHotelAdded }) {
         <div className="pt-4 border-t border-slate-800/80 space-y-4">
           <div>
             <div className="flex items-center justify-between mb-1.5">
-              <label className="block text-xs font-semibold text-slate-300">Property Imagery (Cloudinary / CDN URLs)</label>
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-medium transition-colors">
+              <label className="block text-xs font-semibold text-slate-300">Property Imagery (Local Photos / CDN URLs)</label>
+              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gold-500/10 hover:bg-gold-500/20 border border-gold-500/30 text-gold-400 text-xs font-medium transition-colors shadow-sm cursor-pointer">
                 {uploadingImage ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <UploadCloud className="w-3.5 h-3.5" />}
-                <span>{uploadingImage ? 'Uploading...' : 'Upload to Cloudinary'}</span>
+                <span>{uploadingImage ? 'Uploading Image...' : 'Choose from Computer'}</span>
                 <input
                   type="file"
                   accept="image/*"
+                  multiple
                   onChange={handleFileUpload}
                   disabled={uploadingImage}
                   className="hidden"
@@ -273,18 +295,26 @@ export default function AddHotel({ onHotelAdded }) {
               name="images"
               value={formData.images}
               onChange={handleChange}
-              placeholder="https://res.cloudinary.com/dioosqpp7/..."
+              placeholder="Paste URLs or click 'Choose from Computer' to upload local photos..."
               className="w-full bg-navy-900 border border-slate-700/80 rounded-xl px-4 py-2.5 text-xs text-slate-200 focus:outline-none focus:border-gold-500 font-mono"
             />
-            {/* Image Preview Strip */}
+            {/* Image Preview Strip with remove button */}
             {formData.images && (
-              <div className="mt-2.5 flex items-center gap-2 overflow-x-auto py-1">
+              <div className="mt-2.5 flex items-center gap-2.5 overflow-x-auto py-1">
                 {formData.images.split(',').map((imgUrl, i) => {
                   const trimmed = imgUrl.trim();
                   if (!trimmed) return null;
                   return (
-                    <div key={i} className="relative w-16 h-12 rounded-lg overflow-hidden border border-slate-700 bg-navy-900 shrink-0">
+                    <div key={i} className="relative group w-20 h-14 rounded-lg overflow-hidden border border-slate-700 bg-navy-900 shrink-0 shadow">
                       <img src={trimmed} alt={`preview-${i}`} className="w-full h-full object-cover" onError={(e) => { e.target.style.display = 'none'; }} />
+                      <button
+                        type="button"
+                        onClick={() => removeImage(i)}
+                        className="absolute top-1 right-1 p-0.5 rounded-full bg-black/75 hover:bg-red-500/90 text-white opacity-0 group-hover:opacity-100 transition-all cursor-pointer"
+                        title="Remove image"
+                      >
+                        <Trash2 className="w-3 h-3" />
+                      </button>
                     </div>
                   );
                 })}

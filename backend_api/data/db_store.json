@@ -1,6 +1,57 @@
 {
   "hotels": [
     {
+      "_id": "6ab3362b39cc0bfee2cd078b",
+      "rating": 4,
+      "reviewCount": 1,
+      "rooms": [
+        {
+          "name": "Oceanview Presidential Suite",
+          "bedType": "1 King Bed",
+          "maxGuests": 2,
+          "sizeSqM": 120,
+          "pricePerNight": 1200,
+          "imageUrl": "http://localhost:5000/uploads/img_1790129688423_472306352.png",
+          "features": [
+            "Ocean View",
+            "Private Jacuzzi",
+            "Butler Service"
+          ],
+          "totalInventory": 7,
+          "weekendMultiplier": 1.15,
+          "seasonalMultiplier": 1.25,
+          "_id": "6ab3362b39cc0bfee2cd078c"
+        }
+      ],
+      "isFeatured": true,
+      "name": "ggg",
+      "tagline": "bggg",
+      "location": "ttt",
+      "city": "rrr",
+      "country": "t",
+      "pricePerNight": 1200,
+      "originalPrice": 1200,
+      "discountPercent": 20,
+      "category": "Beachfront",
+      "images": [
+        "http://localhost:5000/uploads/img_1790129688423_472306352.png"
+      ],
+      "description": "yyyyyyyyyyyyyy",
+      "amenities": [
+        "Private Ocean Pool",
+        "Overwater Spa",
+        "St. Regis Butler",
+        "Fine Dining",
+        "Yacht Excursions"
+      ],
+      "reviews": [],
+      "latitude": 0,
+      "longitude": 0,
+      "createdAt": "2026-09-23T02:15:08.123Z",
+      "updatedAt": "2026-09-25T01:51:59.992Z",
+      "__v": 0
+    },
+    {
       "_id": "hotel-1789869315653",
       "rating": 4.95,
       "reviewCount": 1,
@@ -322,8 +373,60 @@
   ],
   "bookings": [
     {
+      "_id": "6ab5d23bbb61d2cd22f75486",
+      "status": "completed",
+      "paymentMethod": "concierge",
+      "grandTotal": 4480.2,
+      "hotelId": "6ab3362b39cc0bfee2cd078b",
+      "hotelName": "ggg",
+      "hotelImage": "http://localhost:5000/uploads/img_1790129688423_472306352.png",
+      "location": "ttt",
+      "roomId": "6ab3362b39cc0bfee2cd078c",
+      "roomName": "Oceanview Presidential Suite",
+      "guestName": "Keshan",
+      "guestEmail": "keshan@gmail.com",
+      "guestPhone": "+94 77 123 4567",
+      "checkIn": "2026-10-02T01:45:08.756Z",
+      "checkOut": "2026-10-05T01:45:08.756Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 3,
+      "roomTotal": 3960,
+      "taxesAndFees": 520.2,
+      "specialRequests": null,
+      "createdAt": "2026-09-25T01:45:31.264Z",
+      "updatedAt": "2026-09-25T01:55:08.698Z",
+      "__v": 0
+    },
+    {
+      "_id": "6ab32a449087edfc01336922",
+      "status": "completed",
+      "paymentMethod": "concierge",
+      "grandTotal": 11687.4,
+      "hotelId": "6ab1dd0587753b6db44e19bc",
+      "hotelName": "Bulgari Resort Dubai",
+      "hotelImage": "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1200&q=80",
+      "location": "Jumeirah Bay Island",
+      "roomId": "6ab1dd0587753b6db44e19bd",
+      "roomName": "Ocean View Suite",
+      "guestName": "keshan",
+      "guestEmail": "keshan@gmail.com",
+      "guestPhone": "+1 (555) 392-8819",
+      "checkIn": "2026-09-23T18:30:00.000Z",
+      "checkOut": "2026-09-29T18:30:00.000Z",
+      "adults": 2,
+      "children": 0,
+      "nights": 6,
+      "roomTotal": 10395,
+      "taxesAndFees": 1292.3999999999999,
+      "specialRequests": "aaaa",
+      "createdAt": "2026-09-23T01:24:21.124Z",
+      "updatedAt": "2026-09-23T02:07:14.242Z",
+      "__v": 0
+    },
+    {
       "_id": "6ab1dfa326a13a0373976024",
-      "status": "confirmed",
+      "status": "completed",
       "paymentMethod": "concierge",
       "grandTotal": 1478,
       "hotelId": "hotel-001",
@@ -343,12 +446,12 @@
       "roomTotal": 1280,
       "taxesAndFees": 198,
       "createdAt": "2026-09-22T01:53:41.782Z",
-      "updatedAt": "2026-09-22T01:53:39.906Z",
+      "updatedAt": "2026-09-23T02:07:19.635Z",
       "__v": 0
     },
     {
       "_id": "6ab1df8557a1653418cb0060",
-      "status": "confirmed",
+      "status": "completed",
       "paymentMethod": "concierge",
       "grandTotal": 1478,
       "hotelId": "hotel-001",
@@ -368,12 +471,12 @@
       "roomTotal": 1280,
       "taxesAndFees": 198,
       "createdAt": "2026-09-22T01:53:11.245Z",
-      "updatedAt": "2026-09-22T01:53:09.863Z",
+      "updatedAt": "2026-09-23T02:07:24.207Z",
       "__v": 0
     },
     {
       "_id": "6ab1df5cfc5a923c8583ce37",
-      "status": "confirmed",
+      "status": "completed",
       "paymentMethod": "concierge",
       "grandTotal": 1478,
       "hotelId": "hotel-001",
@@ -393,7 +496,7 @@
       "roomTotal": 1280,
       "taxesAndFees": 198,
       "createdAt": "2026-09-22T01:52:30.310Z",
-      "updatedAt": "2026-09-22T01:52:28.972Z",
+      "updatedAt": "2026-09-23T02:07:28.271Z",
       "__v": 0
     },
     {
@@ -665,73 +768,54 @@
   ],
   "users": [
     {
-      "_id": "usr-001",
-      "name": "Alexander Wright",
-      "email": "alexander@luxurystays.io",
+      "_id": "usr-admin",
+      "name": "System Administrator",
+      "email": "admin@luxurystays.io",
       "role": "admin",
       "tier": "Black Diamond VIP",
-      "points": 92500,
-      "phone": "+1 (555) 902-1200",
-      "avatarUrl": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=400&q=80",
-      "createdAt": "2025-11-12T08:00:00.000Z"
+      "points": 100000,
+      "phone": "+94 77 123 4567",
+      "country": "Sri Lanka",
+      "createdAt": "2026-09-20T08:00:00.000Z"
     },
     {
-      "_id": "usr-002",
-      "name": "Eleanor Vance",
-      "email": "eleanor.vance@vip.io",
-      "role": "vip",
-      "tier": "Platinum Elite",
-      "points": 48200,
-      "phone": "+1 (555) 438-9921",
-      "avatarUrl": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80",
-      "createdAt": "2025-12-05T14:30:00.000Z"
-    },
-    {
-      "_id": "usr-003",
-      "name": "Lord Harrison Smith",
-      "email": "harrison.smith@royale.com",
-      "role": "vip",
-      "tier": "Black Diamond VIP",
-      "points": 114000,
-      "phone": "+44 20 7946 0912",
-      "avatarUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
-      "createdAt": "2026-01-08T09:10:00.000Z"
-    },
-    {
-      "_id": "usr-004",
-      "name": "Kavita Chawla",
-      "email": "kavita.c@emirates.ae",
-      "role": "vip",
-      "tier": "Gold Member",
-      "points": 29500,
-      "phone": "+971 50 123 4567",
-      "avatarUrl": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-      "createdAt": "2026-01-22T16:45:00.000Z"
-    },
-    {
-      "_id": "usr-005",
-      "name": "Marcus Sterling",
-      "email": "marcus.sterling@travel.io",
+      "_id": "usr-1790128790142",
       "role": "member",
-      "tier": "Gold Member",
-      "points": 18400,
-      "phone": "+1 (555) 334-1188",
-      "avatarUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=400&q=80",
-      "createdAt": "2026-02-14T11:20:00.000Z"
+      "tier": "Silver Prestige",
+      "points": 5000,
+      "createdAt": "2026-09-23T01:59:50.142Z",
+      "name": "Keshanrandula",
+      "email": "keshanrandula@gmail.com",
+      "phone": "0761942616",
+      "country": "Sri Lanka"
     },
     {
-      "_id": "usr-006",
-      "name": "Sophia Montgomery",
-      "email": "sophia.m@monaco-yachts.mc",
-      "role": "vip",
-      "tier": "Platinum Elite",
-      "points": 62000,
-      "phone": "+377 98 98 00 00",
-      "avatarUrl": "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
-      "createdAt": "2026-03-02T13:10:00.000Z"
+      "_id": "usr-1790300326185",
+      "role": "member",
+      "tier": "Silver Prestige",
+      "points": 5000,
+      "createdAt": "2026-09-25T01:38:46.185Z",
+      "name": "Keshan",
+      "email": "keshan@gmail.com",
+      "phone": "+94 77 123 4567",
+      "country": "Sri Lanka"
     }
   ],
   "reviews": [
+    {
+      "_id": "rev-1790302082415",
+      "hotelId": "6ab3362b39cc0bfee2cd078b",
+      "hotelName": "ggg",
+      "bookingId": "6ab5d23bbb61d2cd22f75486",
+      "userId": "usr-1790300326185",
+      "userName": "Keshan",
+      "userAvatar": "",
+      "rating": 4,
+      "comment": "good",
+      "photos": [],
+      "status": "approved",
+      "createdAt": "2026-09-25T02:08:02.415Z"
+    },
     {
       "_id": "rev-1790042047789",
       "hotelId": "hotel-001",
@@ -947,6 +1031,19 @@
   ],
   "promos": [
     {
+      "_id": "prm-1790301146405",
+      "code": "TTT",
+      "description": "ffff",
+      "discountType": "percentage",
+      "discountValue": 15,
+      "minBookingAmount": 1000,
+      "maxDiscount": 1500,
+      "expiryDate": "2027-12-31",
+      "isActive": true,
+      "usageCount": 0,
+      "createdAt": "2026-09-25T01:52:26.405Z"
+    },
+    {
       "_id": "prm-001",
       "code": "WELCOME10",
       "description": "10% Welcome discount on all luxury retreats",
@@ -1000,6 +1097,34 @@
     }
   ],
   "notifications": [
+    {
+      "_id": "notif-1790300731548-299",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at ggg (Oceanview Presidential Suite) is booked for Oct 2. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "6ab5d23bbb61d2cd22f75486",
+        "hotelId": "6ab3362b39cc0bfee2cd078b"
+      },
+      "createdAt": "2026-09-25T01:45:31.548Z"
+    },
+    {
+      "_id": "notif-1790126661429-258",
+      "title": "Reservation Confirmed! 🛎️",
+      "body": "Your stay at Bulgari Resort Dubai (Ocean View Suite) is booked for Sep 24. Your luxury itinerary is ready.",
+      "type": "booking_confirmed",
+      "targetAudience": "single_device",
+      "recipientCount": 1,
+      "status": "delivered",
+      "data": {
+        "bookingId": "6ab32a449087edfc01336922",
+        "hotelId": "6ab1dd0587753b6db44e19bc"
+      },
+      "createdAt": "2026-09-23T01:24:21.429Z"
+    },
     {
       "_id": "notif-1790042021802-443",
       "title": "Reservation Confirmed! 🛎️",
@@ -1315,5 +1440,5 @@
       "createdAt": "2026-03-10T09:00:00.000Z"
     }
   ],
-  "updatedAt": "2026-09-22T01:54:07.790Z"
+  "updatedAt": "2026-09-25T02:08:02.431Z"
 }

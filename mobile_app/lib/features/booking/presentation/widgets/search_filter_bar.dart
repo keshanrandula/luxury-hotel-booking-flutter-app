@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 
-class SearchFilterBar extends StatelessWidget {
+class SearchFilterBar extends StatefulWidget {
   final String selectedCategory;
   final Function(String) onCategorySelected;
   final Function(String) onSearchSubmitted;
+  final Function(String)? onSearchChanged;
   final TextEditingController searchController;
 
   const SearchFilterBar({
@@ -12,6 +13,7 @@ class SearchFilterBar extends StatelessWidget {
     required this.selectedCategory,
     required this.onCategorySelected,
     required this.onSearchSubmitted,
+    this.onSearchChanged,
     required this.searchController,
   });
 
@@ -22,6 +24,27 @@ class SearchFilterBar extends StatelessWidget {
     'Mountain',
     'Boutique',
   ];
+
+  @override
+  State<SearchFilterBar> createState() => _SearchFilterBarState();
+}
+
+class _SearchFilterBarState extends State<SearchFilterBar> {
+  @override
+  void initState() {
+    super.initState();
+    widget.searchController.addListener(_onControllerChanged);
+  }
+
+  @override
+  void dispose() {
+    widget.searchController.removeListener(_onControllerChanged);
+    super.dispose();
+  }
+
+  void _onControllerChanged() {
+    if (mounted) setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,22 +70,29 @@ class SearchFilterBar extends StatelessWidget {
             ],
           ),
           child: TextField(
-            controller: searchController,
-            onSubmitted: onSearchSubmitted,
+            controller: widget.searchController,
+            onSubmitted: widget.onSearchSubmitted,
+            onChanged: (val) {
+              if (widget.onSearchChanged != null) {
+                widget.onSearchChanged!(val);
+              } else {
+                widget.onSearchSubmitted(val);
+              }
+            },
             textInputAction: TextInputAction.search,
             style: TextStyle(
               color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
               fontSize: 14,
             ),
             decoration: InputDecoration(
-              hintText: 'Search Maldives, Bali, Swiss Alps...',
+              hintText: 'Search Bora Bora, Maldives, Swiss...',
               prefixIcon: const Icon(Icons.search_rounded, color: AppColors.accentGold, size: 22),
-              suffixIcon: searchController.text.isNotEmpty
+              suffixIcon: widget.searchController.text.isNotEmpty
                   ? IconButton(
                       icon: const Icon(Icons.clear_rounded, size: 18),
                       onPressed: () {
-                        searchController.clear();
-                        onSearchSubmitted('');
+                        widget.searchController.clear();
+                        widget.onSearchSubmitted('');
                       },
                     )
                   : null,
@@ -80,14 +110,14 @@ class SearchFilterBar extends StatelessWidget {
           height: 42,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: categories.length,
+            itemCount: SearchFilterBar.categories.length,
             separatorBuilder: (_, __) => const SizedBox(width: 8),
             itemBuilder: (context, index) {
-              final cat = categories[index];
-              final isSelected = cat.toLowerCase() == selectedCategory.toLowerCase();
+              final cat = SearchFilterBar.categories[index];
+              final isSelected = cat.toLowerCase() == widget.selectedCategory.toLowerCase();
 
               return GestureDetector(
-                onTap: () => onCategorySelected(cat),
+                onTap: () => widget.onCategorySelected(cat),
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),

@@ -52,7 +52,27 @@ export default function App() {
 
   useEffect(() => {
     loadAllData();
+    const timer = setInterval(() => {
+      loadAllData();
+    }, 6000);
+    return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    if (activeTab === 'users') {
+      HotelService.getUsers().then((res) => {
+        if (res) setUsers(res);
+      }).catch(console.error);
+    } else if (activeTab === 'reviews') {
+      HotelService.getReviews().then((res) => {
+        if (res) setReviewsData(res);
+      }).catch(console.error);
+    } else if (activeTab === 'bookings') {
+      HotelService.getBookings().then((res) => {
+        if (res) setBookings(res);
+      }).catch(console.error);
+    }
+  }, [activeTab]);
 
   const handleStatusUpdate = async (id, newStatus) => {
     try {

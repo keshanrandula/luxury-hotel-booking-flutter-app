@@ -43,6 +43,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: '+1 (555) 234-5678',
     },
+    country: {
+      type: String,
+      default: 'Sri Lanka',
+    },
   },
   {
     timestamps: true,

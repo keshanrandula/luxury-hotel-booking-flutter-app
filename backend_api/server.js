@@ -13,10 +13,15 @@ connectDB();
 
 const app = express();
 
-// Body parser & Middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const path = require('path');
+
+// Body parser & Middleware (increase limit for image uploads)
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors({ origin: '*' }));
+
+// Serve static uploads folder
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));

@@ -61,6 +61,9 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
     if (currentUser != null) {
       _nameController.text = currentUser.name;
       _emailController.text = currentUser.email;
+      if (currentUser.phone != null && currentUser.phone!.isNotEmpty) {
+        _phoneController.text = currentUser.phone!;
+      }
     }
   }
 
@@ -297,6 +300,12 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
     final theme = Theme.of(context);
     final isDark = theme.brightness == Brightness.dark;
 
+    final cardBg = isDark ? const Color(0xFF131B2E) : Colors.white;
+    final borderColor = isDark ? const Color(0xFF2A364F) : const Color(0xFFE2E8F0);
+    final inputBg = isDark ? const Color(0xFF0F172A) : const Color(0xFFF8FAFC);
+    final textPrimary = isDark ? const Color(0xFFF8FAFC) : const Color(0xFF0F172A);
+    final textSecondary = isDark ? const Color(0xFF94A3B8) : const Color(0xFF64748B);
+
     return BlocListener<BookingBloc, BookingState>(
       listener: (context, state) {
         if (state.status == BookingProcessStatus.success && state.lastCreatedBooking != null) {
@@ -319,46 +328,63 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: isDark ? const Color(0xFF090D16) : const Color(0xFFF8FAFC),
         appBar: AppBar(
+          backgroundColor: isDark ? const Color(0xFF090D16) : Colors.white,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios_new_rounded, size: 18, color: textPrimary),
+            onPressed: () => Navigator.pop(context),
+          ),
           title: Text(
             'Confirm & Reserve',
             style: TextStyle(
-              fontWeight: FontWeight.w700,
+              fontWeight: FontWeight.w800,
               fontSize: 18,
-              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+              color: textPrimary,
+              letterSpacing: -0.2,
             ),
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-            onPressed: () => Navigator.pop(context),
           ),
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 120),
+          padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
           child: Form(
             key: _formKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Selected Hotel & Room Summary Card
+                // 1. Hotel & Room Summary Card
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.surfaceDark : Colors.white,
+                    color: cardBg,
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                    ),
+                    border: Border.all(color: borderColor),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(isDark ? 0.2 : 0.04),
+                        blurRadius: 10,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
                   ),
                   child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(14),
                         child: Image.network(
                           widget.selectedRoom.imageUrl,
-                          width: 85,
-                          height: 85,
+                          width: 84,
+                          height: 84,
                           fit: BoxFit.cover,
+                          errorBuilder: (_, __, ___) => Container(
+                            width: 84,
+                            height: 84,
+                            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFE2E8F0),
+                            child: const Icon(Icons.hotel, color: AppColors.accentGold),
+                          ),
                         ),
                       ),
                       const SizedBox(width: 14),
@@ -370,32 +396,47 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                               widget.hotel.name,
                               style: TextStyle(
                                 fontSize: 16,
-                                fontWeight: FontWeight.w700,
-                                color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                                fontWeight: FontWeight.w800,
+                                color: textPrimary,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             const SizedBox(height: 4),
-                            Text(
-                              widget.selectedRoom.name,
-                              style: const TextStyle(
-                                fontSize: 13,
-                                color: AppColors.accentGold,
-                                fontWeight: FontWeight.w600,
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                              decoration: BoxDecoration(
+                                color: AppColors.accentGold.withOpacity(0.12),
+                                borderRadius: BorderRadius.circular(6),
                               ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                              child: Text(
+                                widget.selectedRoom.name,
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: AppColors.accentGold,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
                             ),
-                            const SizedBox(height: 4),
-                            Text(
-                              widget.hotel.location,
-                              style: TextStyle(
-                                fontSize: 12,
-                                color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
-                              ),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
+                            const SizedBox(height: 6),
+                            Row(
+                              children: [
+                                Icon(Icons.location_on_outlined, size: 14, color: textSecondary),
+                                const SizedBox(width: 4),
+                                Expanded(
+                                  child: Text(
+                                    widget.hotel.location,
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      color: textSecondary,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
@@ -403,35 +444,34 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
 
-                // Trip Dates Section
-                Text(
-                  'Dates & Duration',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                GestureDetector(
+                // 2. Dates & Duration Section
+                _buildSectionHeader('Dates & Duration', textPrimary),
+                const SizedBox(height: 8),
+                InkWell(
                   onTap: _selectDateRange,
+                  borderRadius: BorderRadius.circular(16),
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
                     decoration: BoxDecoration(
-                      color: isDark ? AppColors.surfaceDark : Colors.white,
+                      color: cardBg,
                       borderRadius: BorderRadius.circular(16),
-                      border: Border.all(
-                        color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                      ),
+                      border: Border.all(color: borderColor),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
                           children: [
-                            const Icon(Icons.calendar_month_rounded, color: AppColors.accentGold),
+                            Container(
+                              padding: const EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                color: AppColors.accentGold.withOpacity(0.12),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(Icons.calendar_month_rounded, color: AppColors.accentGold, size: 20),
+                            ),
                             const SizedBox(width: 12),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -441,55 +481,55 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                                   style: TextStyle(
                                     fontWeight: FontWeight.w700,
                                     fontSize: 14,
-                                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                                    color: textPrimary,
                                   ),
                                 ),
+                                const SizedBox(height: 2),
                                 Text(
                                   '$_nights Night${_nights > 1 ? 's' : ''} Stay',
                                   style: TextStyle(
                                     fontSize: 12,
-                                    color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+                                    color: textSecondary,
                                   ),
                                 ),
                               ],
                             ),
                           ],
                         ),
-                        const Text(
-                          'Change',
-                          style: TextStyle(
-                            color: AppColors.accentGold,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 13,
+                        Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                          decoration: BoxDecoration(
+                            color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          child: const Text(
+                            'Change',
+                            style: TextStyle(
+                              color: AppColors.accentGold,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
 
-                // Guests Counter Section
-                Text(
-                  'Guests',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
-                  ),
-                ),
-                const SizedBox(height: 10),
+                // 3. Guests Section
+                _buildSectionHeader('Guests', textPrimary),
+                const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.surfaceDark : Colors.white,
+                    color: cardBg,
                     borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                    ),
+                    border: Border.all(color: borderColor),
                   ),
                   child: Column(
                     children: [
+                      // Adults Counter
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -497,45 +537,56 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Adults (18+)',
+                                'Adults',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 14,
-                                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                                  color: textPrimary,
                                 ),
                               ),
                               Text(
-                                'Ages 18 or above',
+                                'Age 18 and above',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+                                  color: textSecondary,
                                 ),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                              IconButton(
-                                icon: const Icon(Icons.remove_circle_outline_rounded),
-                                onPressed: _adultsCount > 1
-                                    ? () => setState(() => _adultsCount--)
-                                    : null,
+                              _buildCounterBtn(
+                                icon: Icons.remove,
+                                isEnabled: _adultsCount > 1,
+                                isDark: isDark,
+                                onTap: () => setState(() => _adultsCount--),
                               ),
-                              Text(
-                                '$_adultsCount',
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 14),
+                                child: Text(
+                                  '$_adultsCount',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16,
+                                    color: textPrimary,
+                                  ),
+                                ),
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.accentGold),
-                                onPressed: _adultsCount < widget.selectedRoom.maxGuests
-                                    ? () => setState(() => _adultsCount++)
-                                    : null,
+                              _buildCounterBtn(
+                                icon: Icons.add,
+                                isEnabled: _adultsCount < widget.selectedRoom.maxGuests,
+                                isDark: isDark,
+                                onTap: () => setState(() => _adultsCount++),
                               ),
                             ],
                           ),
                         ],
                       ),
-                      const Divider(height: 12),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Divider(color: borderColor, height: 1),
+                      ),
+                      // Children Counter
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -543,39 +594,46 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Children (0-17)',
+                                'Children',
                                 style: TextStyle(
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w700,
                                   fontSize: 14,
-                                  color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                                  color: textPrimary,
                                 ),
                               ),
                               Text(
-                                'Ages under 18',
+                                'Age 0 to 17',
                                 style: TextStyle(
                                   fontSize: 12,
-                                  color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+                                  color: textSecondary,
                                 ),
                               ),
                             ],
                           ),
                           Row(
                             children: [
-                              IconButton(
-                                icon: const Icon(Icons.remove_circle_outline_rounded),
-                                onPressed: _childrenCount > 0
-                                    ? () => setState(() => _childrenCount--)
-                                    : null,
+                              _buildCounterBtn(
+                                icon: Icons.remove,
+                                isEnabled: _childrenCount > 0,
+                                isDark: isDark,
+                                onTap: () => setState(() => _childrenCount--),
                               ),
-                              Text(
-                                '$_childrenCount',
-                                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 14),
+                                child: Text(
+                                  '$_childrenCount',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 16,
+                                    color: textPrimary,
+                                  ),
+                                ),
                               ),
-                              IconButton(
-                                icon: const Icon(Icons.add_circle_outline_rounded, color: AppColors.accentGold),
-                                onPressed: _childrenCount < 4
-                                    ? () => setState(() => _childrenCount++)
-                                    : null,
+                              _buildCounterBtn(
+                                icon: Icons.add,
+                                isEnabled: _childrenCount < 4,
+                                isDark: isDark,
+                                onTap: () => setState(() => _childrenCount++),
                               ),
                             ],
                           ),
@@ -584,73 +642,103 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
 
-                // Primary Guest Information
-                Text(
-                  'Primary Guest Contact',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                // 4. Primary Guest Information
+                _buildSectionHeader('Primary Guest Contact', textPrimary),
+                const SizedBox(height: 8),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: cardBg,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: borderColor),
                   ),
-                ),
-                const SizedBox(height: 10),
-                TextFormField(
-                  controller: _nameController,
-                  validator: (v) => Validators.validateName(v, 'Full name'),
-                  decoration: const InputDecoration(
-                    labelText: 'Full Name',
-                    prefixIcon: Icon(Icons.person_outline_rounded, size: 20),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  validator: Validators.validateEmail,
-                  decoration: const InputDecoration(
-                    labelText: 'Email Address for Itinerary',
-                    prefixIcon: Icon(Icons.email_outlined, size: 20),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  validator: Validators.validatePhone,
-                  decoration: const InputDecoration(
-                    labelText: 'Phone Number for VIP Butler',
-                    prefixIcon: Icon(Icons.phone_outlined, size: 20),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                TextFormField(
-                  controller: _requestsController,
-                  maxLines: 2,
-                  decoration: const InputDecoration(
-                    labelText: 'Special Requests (e.g. Airport pickup, champagne)',
-                    prefixIcon: Icon(Icons.notes_rounded, size: 20),
-                  ),
-                ),
-                const SizedBox(height: 24),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      _buildInputLabel('Full Name', textPrimary),
+                      const SizedBox(height: 6),
+                      TextFormField(
+                        controller: _nameController,
+                        style: TextStyle(color: textPrimary, fontSize: 14),
+                        validator: (v) => Validators.validateName(v, 'Full name'),
+                        decoration: _buildInputDecoration(
+                          hint: 'e.g. Alexander Vance',
+                          icon: Icons.person_outline_rounded,
+                          inputBg: inputBg,
+                          borderColor: borderColor,
+                          textSecondary: textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
 
-                // Payment Method Selector
-                Text(
-                  'Payment Preference',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                      _buildInputLabel('Email Address (for Itinerary & Confirmation)', textPrimary),
+                      const SizedBox(height: 6),
+                      TextFormField(
+                        controller: _emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        style: TextStyle(color: textPrimary, fontSize: 14),
+                        validator: Validators.validateEmail,
+                        decoration: _buildInputDecoration(
+                          hint: 'e.g. member@luxurystays.com',
+                          icon: Icons.email_outlined,
+                          inputBg: inputBg,
+                          borderColor: borderColor,
+                          textSecondary: textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+
+                      _buildInputLabel('Contact Phone Number (for VIP Butler)', textPrimary),
+                      const SizedBox(height: 6),
+                      TextFormField(
+                        controller: _phoneController,
+                        keyboardType: TextInputType.phone,
+                        style: TextStyle(color: textPrimary, fontSize: 14),
+                        validator: Validators.validatePhone,
+                        decoration: _buildInputDecoration(
+                          hint: '+94 77 123 4567',
+                          icon: Icons.phone_outlined,
+                          inputBg: inputBg,
+                          borderColor: borderColor,
+                          textSecondary: textSecondary,
+                        ),
+                      ),
+                      const SizedBox(height: 14),
+
+                      _buildInputLabel('Special Requests (Optional)', textPrimary),
+                      const SizedBox(height: 6),
+                      TextFormField(
+                        controller: _requestsController,
+                        maxLines: 2,
+                        style: TextStyle(color: textPrimary, fontSize: 14),
+                        decoration: _buildInputDecoration(
+                          hint: 'e.g. High floor, Airport limousine, Champagne on arrival',
+                          icon: Icons.notes_rounded,
+                          inputBg: inputBg,
+                          borderColor: borderColor,
+                          textSecondary: textSecondary,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
+
+                // 5. Payment Preference
+                _buildSectionHeader('Payment Preference', textPrimary),
+                const SizedBox(height: 8),
                 _buildPaymentOption(
                   id: 'concierge',
                   title: 'VIP Concierge Pay on Arrival',
                   subtitle: 'No charge today. Settle upon check-in at resort.',
                   icon: Icons.hotel_class_rounded,
                   isDark: isDark,
+                  cardBg: cardBg,
+                  borderColor: borderColor,
+                  textPrimary: textPrimary,
+                  textSecondary: textSecondary,
                 ),
                 const SizedBox(height: 10),
                 _buildPaymentOption(
@@ -659,28 +747,24 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                   subtitle: 'Instant authorization with luxury travel protection.',
                   icon: Icons.credit_card_rounded,
                   isDark: isDark,
+                  cardBg: cardBg,
+                  borderColor: borderColor,
+                  textPrimary: textPrimary,
+                  textSecondary: textSecondary,
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
 
-                // Promo Codes & Coupons Section
-                Text(
-                  'Promo Code & Special Offers',
-                  style: TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                    color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
-                  ),
-                ),
-                const SizedBox(height: 10),
+                // 6. Promo Codes & Coupons Section
+                _buildSectionHeader('Promo Code & Special Offers', textPrimary),
+                const SizedBox(height: 8),
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.surfaceDark : Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    color: cardBg,
+                    borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: _appliedPromoCode != null
-                          ? AppColors.success.withOpacity(0.5)
-                          : (isDark ? AppColors.borderDark : AppColors.borderLight),
+                      color: _appliedPromoCode != null ? AppColors.success : borderColor,
+                      width: _appliedPromoCode != null ? 1.5 : 1,
                     ),
                   ),
                   child: Column(
@@ -692,11 +776,11 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                           decoration: BoxDecoration(
                             color: AppColors.success.withOpacity(0.12),
                             borderRadius: BorderRadius.circular(12),
-                            border: Border.all(color: AppColors.success.withOpacity(0.3)),
+                            border: Border.all(color: AppColors.success.withOpacity(0.4)),
                           ),
                           child: Row(
                             children: [
-                              const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 20),
+                              const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 22),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Column(
@@ -705,7 +789,7 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                                     Text(
                                       '$_appliedPromoCode Applied',
                                       style: const TextStyle(
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w800,
                                         fontSize: 14,
                                         color: AppColors.success,
                                       ),
@@ -736,19 +820,25 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                               child: TextField(
                                 controller: _promoController,
                                 textCapitalization: TextCapitalization.characters,
+                                style: TextStyle(color: textPrimary, fontSize: 13, fontWeight: FontWeight.w600),
                                 decoration: InputDecoration(
-                                  hintText: 'Enter promo code (e.g. WELCOME10)',
-                                  hintStyle: TextStyle(
-                                    fontSize: 13,
-                                    color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
-                                  ),
-                                  prefixIcon: const Icon(Icons.confirmation_number_outlined, size: 20, color: AppColors.accentGold),
+                                  hintText: 'Enter code (e.g. WELCOME10)',
+                                  hintStyle: TextStyle(fontSize: 13, color: textSecondary),
+                                  prefixIcon: const Icon(Icons.confirmation_number_outlined, size: 18, color: AppColors.accentGold),
                                   contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
                                   filled: true,
-                                  fillColor: isDark ? AppColors.bgDark : const Color(0xFFF1F5F9),
+                                  fillColor: inputBg,
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(12),
-                                    borderSide: BorderSide.none,
+                                    borderSide: BorderSide(color: borderColor),
+                                  ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: BorderSide(color: borderColor),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(12),
+                                    borderSide: const BorderSide(color: AppColors.accentGold, width: 1.5),
                                   ),
                                 ),
                               ),
@@ -767,7 +857,7 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                               ),
                               child: const Text(
                                 'Apply',
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 13),
+                                style: TextStyle(fontWeight: FontWeight.w800, fontSize: 13),
                               ),
                             ),
                           ],
@@ -789,11 +879,11 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                         ],
                         const SizedBox(height: 12),
                         Text(
-                          'Recommended Deals:',
+                          'Available Offers:',
                           style: TextStyle(
                             fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+                            fontWeight: FontWeight.w700,
+                            color: textSecondary,
                           ),
                         ),
                         const SizedBox(height: 8),
@@ -801,13 +891,13 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                           scrollDirection: Axis.horizontal,
                           child: Row(
                             children: [
-                              _buildPromoChip('WELCOME10', '10% OFF (Min \$500)', isDark),
+                              _buildPromoChip('WELCOME10', '10% OFF', isDark),
                               const SizedBox(width: 8),
-                              _buildPromoChip('HOLIDAY20', '20% OFF (Min \$2k)', isDark),
+                              _buildPromoChip('HOLIDAY20', '20% OFF', isDark),
                               const SizedBox(width: 8),
-                              _buildPromoChip('BLACKDIAMOND', '\$500 Flat Voucher', isDark),
+                              _buildPromoChip('BLACKDIAMOND', '\$500 OFF', isDark),
                               const SizedBox(width: 8),
-                              _buildPromoChip('SUMMERSCAPE', '15% OFF (Min \$800)', isDark),
+                              _buildPromoChip('SUMMERSCAPE', '15% OFF', isDark),
                             ],
                           ),
                         ),
@@ -815,37 +905,49 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                     ],
                   ),
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 20),
 
-                // Price Breakdown Card
+                // 7. Price Breakdown Card
+                _buildSectionHeader('Price Summary', textPrimary),
+                const SizedBox(height: 8),
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.all(18),
                   decoration: BoxDecoration(
-                    color: isDark ? AppColors.surfaceDark : const Color(0xFFF8FAFC),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                      color: isDark ? AppColors.borderDark : AppColors.borderLight,
-                    ),
+                    color: cardBg,
+                    borderRadius: BorderRadius.circular(16),
+                    border: Border.all(color: borderColor),
                   ),
                   child: Column(
                     children: [
                       _buildPriceRow(
-                        '${CurrencyFormatter.format(widget.selectedRoom.pricePerNight)} x $_nights nights',
+                        '${CurrencyFormatter.format(widget.selectedRoom.pricePerNight)} × $_nights nights',
                         CurrencyFormatter.format(_baseRoomTotal),
-                        isDark,
+                        textPrimary,
+                        textSecondary,
                       ),
                       if (_weekendNights > 0 && _weekendSurcharge > 0) ...[
                         const SizedBox(height: 8),
                         _buildPriceRow(
                           'Weekend Rate Adjustment ($_weekendNights nights)',
                           '+ ${CurrencyFormatter.format(_weekendSurcharge)}',
-                          isDark,
+                          textPrimary,
+                          textSecondary,
                         ),
                       ],
                       const SizedBox(height: 8),
-                      _buildPriceRow('Taxes & Tourism Levy (12%)', CurrencyFormatter.format(_roomSubtotal * AppConstants.taxRate), isDark),
+                      _buildPriceRow(
+                        'Taxes & Tourism Levy (12%)',
+                        CurrencyFormatter.format(_roomSubtotal * AppConstants.taxRate),
+                        textPrimary,
+                        textSecondary,
+                      ),
                       const SizedBox(height: 8),
-                      _buildPriceRow('Resort & Wellness Fee', CurrencyFormatter.format(AppConstants.serviceFee), isDark),
+                      _buildPriceRow(
+                        'Resort & Wellness Fee',
+                        CurrencyFormatter.format(AppConstants.serviceFee),
+                        textPrimary,
+                        textSecondary,
+                      ),
                       if (_discountAmount > 0) ...[
                         const SizedBox(height: 8),
                         Row(
@@ -859,7 +961,7 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                                   'Promo Discount (${_appliedPromoCode ?? "Coupon"})',
                                   style: const TextStyle(
                                     fontSize: 13,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w700,
                                     color: AppColors.success,
                                   ),
                                 ),
@@ -869,26 +971,26 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                               '- ${CurrencyFormatter.format(_discountAmount)}',
                               style: const TextStyle(
                                 fontSize: 13,
-                                fontWeight: FontWeight.bold,
+                                fontWeight: FontWeight.w800,
                                 color: AppColors.success,
                               ),
                             ),
                           ],
                         ),
                       ],
-                      const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Divider(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        child: Divider(color: borderColor, height: 1),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            'Total Price',
+                            'Grand Total',
                             style: TextStyle(
                               fontWeight: FontWeight.w800,
-                              fontSize: 17,
-                              color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                              fontSize: 16,
+                              color: textPrimary,
                             ),
                           ),
                           Column(
@@ -898,15 +1000,15 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                                 Text(
                                   CurrencyFormatter.format(_roomSubtotal + _taxesAndFees),
                                   style: TextStyle(
-                                    fontSize: 13,
+                                    fontSize: 12,
                                     decoration: TextDecoration.lineThrough,
-                                    color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+                                    color: textSecondary,
                                   ),
                                 ),
                               Text(
                                 CurrencyFormatter.format(_grandTotal),
                                 style: const TextStyle(
-                                  fontWeight: FontWeight.w800,
+                                  fontWeight: FontWeight.w900,
                                   fontSize: 22,
                                   color: AppColors.accentGold,
                                 ),
@@ -918,21 +1020,27 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                     ],
                   ),
                 ),
+                const SizedBox(height: 30),
               ],
             ),
           ),
         ),
 
-        // Bottom Reserve Button
-        bottomSheet: Container(
-          padding: const EdgeInsets.fromLTRB(20, 14, 20, 24),
+        // Bottom Sticky Reservation Button
+        bottomNavigationBar: Container(
+          padding: const EdgeInsets.fromLTRB(18, 12, 18, 18),
           decoration: BoxDecoration(
-            color: isDark ? AppColors.surfaceDark : Colors.white,
+            color: isDark ? const Color(0xFF131B2E) : Colors.white,
             border: Border(
-              top: BorderSide(
-                color: isDark ? AppColors.borderDark : AppColors.borderLight,
-              ),
+              top: BorderSide(color: borderColor, width: 1),
             ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(isDark ? 0.4 : 0.08),
+                blurRadius: 16,
+                offset: const Offset(0, -4),
+              ),
+            ],
           ),
           child: SafeArea(
             top: false,
@@ -940,45 +1048,130 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
               builder: (context, state) {
                 final isLoading = state.status == BookingProcessStatus.loading;
 
-                return SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: isLoading ? null : _onConfirmBooking,
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.accentGold,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
-                      ),
+                return ElevatedButton(
+                  onPressed: isLoading ? null : _onConfirmBooking,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.accentGold,
+                    foregroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
                     ),
-                    child: isLoading
-                        ? const SizedBox(
-                            height: 22,
-                            width: 22,
-                            child: CircularProgressIndicator(
-                              strokeWidth: 2.5,
-                              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                            ),
-                          )
-                        : Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              const Icon(Icons.lock_outline_rounded, size: 18, color: Colors.white),
-                              const SizedBox(width: 8),
-                              Text(
-                                'Confirm Reservation • ${CurrencyFormatter.format(_grandTotal)}',
-                                style: const TextStyle(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ],
-                          ),
+                    elevation: 0,
                   ),
+                  child: isLoading
+                      ? const SizedBox(
+                          height: 22,
+                          width: 22,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2.5,
+                            valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                          ),
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.lock_outline_rounded, size: 18, color: Colors.white),
+                            const SizedBox(width: 8),
+                            Text(
+                              'Confirm Reservation • ${CurrencyFormatter.format(_grandTotal)}',
+                              style: const TextStyle(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w800,
+                                letterSpacing: 0.3,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
                 );
               },
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(String title, Color textColor) {
+    return Text(
+      title,
+      style: TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w800,
+        color: textColor,
+        letterSpacing: -0.2,
+      ),
+    );
+  }
+
+  Widget _buildInputLabel(String label, Color textColor) {
+    return Text(
+      label,
+      style: TextStyle(
+        fontSize: 12.5,
+        fontWeight: FontWeight.w600,
+        color: textColor,
+      ),
+    );
+  }
+
+  InputDecoration _buildInputDecoration({
+    required String hint,
+    required IconData icon,
+    required Color inputBg,
+    required Color borderColor,
+    required Color textSecondary,
+  }) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(fontSize: 13, color: textSecondary.withOpacity(0.7)),
+      prefixIcon: Icon(icon, size: 18, color: textSecondary),
+      filled: true,
+      fillColor: inputBg,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: borderColor),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: BorderSide(color: borderColor),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(12),
+        borderSide: const BorderSide(color: AppColors.accentGold, width: 1.5),
+      ),
+    );
+  }
+
+  Widget _buildCounterBtn({
+    required IconData icon,
+    required bool isEnabled,
+    required bool isDark,
+    required VoidCallback onTap,
+  }) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: isEnabled ? onTap : null,
+        borderRadius: BorderRadius.circular(10),
+        child: Container(
+          width: 34,
+          height: 34,
+          decoration: BoxDecoration(
+            color: isEnabled
+                ? (isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9))
+                : (isDark ? const Color(0xFF131B2E) : const Color(0xFFF8FAFC)),
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              color: isEnabled ? AppColors.accentGold.withOpacity(0.4) : Colors.transparent,
+            ),
+          ),
+          child: Icon(
+            icon,
+            size: 18,
+            color: isEnabled ? AppColors.accentGold : (isDark ? Colors.white24 : Colors.black26),
           ),
         ),
       ),
@@ -991,26 +1184,40 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
     required String subtitle,
     required IconData icon,
     required bool isDark,
+    required Color cardBg,
+    required Color borderColor,
+    required Color textPrimary,
+    required Color textSecondary,
   }) {
     final isSelected = _paymentMethod == id;
 
-    return GestureDetector(
+    return InkWell(
       onTap: () => setState(() => _paymentMethod = id),
+      borderRadius: BorderRadius.circular(16),
       child: Container(
         padding: const EdgeInsets.all(14),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.accentGold.withOpacity(0.08)
-              : (isDark ? AppColors.surfaceDark : Colors.white),
+          color: isSelected ? AppColors.accentGold.withOpacity(0.08) : cardBg,
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? AppColors.accentGold : (isDark ? AppColors.borderDark : AppColors.borderLight),
+            color: isSelected ? AppColors.accentGold : borderColor,
             width: isSelected ? 1.5 : 1,
           ),
         ),
         child: Row(
           children: [
-            Icon(icon, color: isSelected ? AppColors.accentGold : (isDark ? Colors.white70 : Colors.black54)),
+            Container(
+              padding: const EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                color: isSelected ? AppColors.accentGold.withOpacity(0.15) : (isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9)),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Icon(
+                icon,
+                color: isSelected ? AppColors.accentGold : textSecondary,
+                size: 20,
+              ),
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
@@ -1021,25 +1228,43 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 14,
-                      color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+                      color: textPrimary,
                     ),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     subtitle,
                     style: TextStyle(
-                      fontSize: 11,
-                      color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
+                      fontSize: 11.5,
+                      color: textSecondary,
                     ),
                   ),
                 ],
               ),
             ),
-            Radio<String>(
-              value: id,
-              groupValue: _paymentMethod,
-              activeColor: AppColors.accentGold,
-              onChanged: (val) => setState(() => _paymentMethod = val!),
+            const SizedBox(width: 8),
+            Container(
+              width: 20,
+              height: 20,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: isSelected ? AppColors.accentGold : textSecondary.withOpacity(0.5),
+                  width: 2,
+                ),
+              ),
+              child: isSelected
+                  ? Center(
+                      child: Container(
+                        width: 10,
+                        height: 10,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: AppColors.accentGold,
+                        ),
+                      ),
+                    )
+                  : null,
             ),
           ],
         ),
@@ -1047,7 +1272,7 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
     );
   }
 
-  Widget _buildPriceRow(String label, String amount, bool isDark) {
+  Widget _buildPriceRow(String label, String amount, Color textPrimary, Color textSecondary) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -1055,15 +1280,15 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
           label,
           style: TextStyle(
             fontSize: 13,
-            color: isDark ? AppColors.textSecondaryDark : AppColors.textSecondaryLight,
+            color: textSecondary,
           ),
         ),
         Text(
           amount,
           style: TextStyle(
             fontSize: 13,
-            fontWeight: FontWeight.w600,
-            color: isDark ? AppColors.textPrimaryDark : AppColors.textPrimaryLight,
+            fontWeight: FontWeight.w700,
+            color: textPrimary,
           ),
         ),
       ],
@@ -1080,9 +1305,9 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
         },
         borderRadius: BorderRadius.circular(10),
         child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 7),
           decoration: BoxDecoration(
-            color: AppColors.accentGold.withOpacity(0.08),
+            color: AppColors.accentGold.withOpacity(0.1),
             borderRadius: BorderRadius.circular(10),
             border: Border.all(
               color: AppColors.accentGold.withOpacity(0.35),
@@ -1092,29 +1317,14 @@ class _BookingCheckoutScreenState extends State<BookingCheckoutScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               const Icon(Icons.local_offer_outlined, size: 13, color: AppColors.accentGold),
-              const SizedBox(width: 5),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    code,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                      color: AppColors.accentGold,
-                      letterSpacing: 0.5,
-                    ),
-                  ),
-                  Text(
-                    subtitle,
-                    style: TextStyle(
-                      fontSize: 9.5,
-                      fontWeight: FontWeight.w500,
-                      color: isDark ? AppColors.textMutedDark : AppColors.textMutedLight,
-                    ),
-                  ),
-                ],
+              const SizedBox(width: 6),
+              Text(
+                '$code ($subtitle)',
+                style: const TextStyle(
+                  fontSize: 11.5,
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.accentGold,
+                ),
               ),
             ],
           ),

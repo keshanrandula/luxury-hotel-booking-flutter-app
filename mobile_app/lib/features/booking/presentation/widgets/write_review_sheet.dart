@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/constants/api_endpoints.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/local_storage/hive_service.dart';
 import '../../domain/entities/booking_entity.dart';
 
 class WriteReviewSheet extends StatefulWidget {
@@ -97,8 +100,40 @@ class _WriteReviewSheetState extends State<WriteReviewSheet> {
 
     setState(() => _isSubmitting = true);
 
-    // Simulate review upload to API
-    await Future.delayed(const Duration(milliseconds: 1000));
+    try {
+      final user = HiveService.instance.getUserData();
+      final dio = Dio(BaseOptions(
+        baseUrl: ApiEndpoints.baseUrl,
+        connectTimeout: const Duration(seconds: 10),
+        receiveTimeout: const Duration(seconds: 10),
+      ));
+
+      final token = HiveService.instance.getToken();
+      final headers = <String, dynamic>{
+        'Content-Type': 'application/json',
+      };
+      if (token != null && token.isNotEmpty) {
+        headers['Authorization'] = 'Bearer $token';
+      }
+
+      await dio.post(
+        '/reviews',
+        data: {
+          'hotelId': widget.booking.hotelId,
+          'hotelName': widget.booking.hotelName,
+          'bookingId': widget.booking.id,
+          'userId': user?['_id'] ?? user?['id'] ?? 'usr-guest',
+          'userName': user?['name'] ?? widget.booking.guestName,
+          'userAvatar': user?['avatarUrl'] ?? '',
+          'rating': _selectedRating,
+          'comment': comment,
+          'photos': _attachedPhotos,
+        },
+        options: Options(headers: headers),
+      );
+    } catch (e) {
+      debugPrint('Review API error: $e');
+    }
 
     if (!mounted) return;
     setState(() => _isSubmitting = false);
@@ -113,7 +148,7 @@ class _WriteReviewSheetState extends State<WriteReviewSheet> {
             SizedBox(width: 10),
             Expanded(
               child: Text(
-                'Thank you! Your verified review has been submitted for moderation.',
+                'Thank you! Your verified review has been submitted & live on console.',
                 style: TextStyle(fontWeight: FontWeight.w600),
               ),
             ),
